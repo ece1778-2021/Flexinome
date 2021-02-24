@@ -16,6 +16,7 @@
 		DECCB65B25E5B45500951EFA /* MetronomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB65A25E5B45500951EFA /* MetronomeViewController.swift */; };
 		DECCB65E25E5B6FB00951EFA /* FilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB65D25E5B6FB00951EFA /* FilesViewController.swift */; };
 		DEE0EDC025E6355D00C12F4C /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE0EDBF25E6355D00C12F4C /* DocumentPicker.swift */; };
+		DEE0EDC525E65BFB00C12F4C /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE0EDC425E65BFB00C12F4C /* PDFViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		DECCB65A25E5B45500951EFA /* MetronomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeViewController.swift; sourceTree = "<group>"; };
 		DECCB65D25E5B6FB00951EFA /* FilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesViewController.swift; sourceTree = "<group>"; };
 		DEE0EDBF25E6355D00C12F4C /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
+		DEE0EDC425E65BFB00C12F4C /* PDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				DECCB64725E4C43000951EFA /* SceneDelegate.swift */,
 				DECCB64925E4C43000951EFA /* ViewController.swift */,
 				DECCB64B25E4C43000951EFA /* Main.storyboard */,
+				DEE0EDC425E65BFB00C12F4C /* PDFViewController.swift */,
 				DEE0EDBF25E6355D00C12F4C /* DocumentPicker.swift */,
 				DECCB65D25E5B6FB00951EFA /* FilesViewController.swift */,
 				DECCB65A25E5B45500951EFA /* MetronomeViewController.swift */,
@@ -151,6 +154,7 @@
 				DECCB64625E4C43000951EFA /* AppDelegate.swift in Sources */,
 				DECCB65E25E5B6FB00951EFA /* FilesViewController.swift in Sources */,
 				DEE0EDC025E6355D00C12F4C /* DocumentPicker.swift in Sources */,
+				DEE0EDC525E65BFB00C12F4C /* PDFViewController.swift in Sources */,
 				DECCB64825E4C43000951EFA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

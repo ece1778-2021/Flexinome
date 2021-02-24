@@ -11,6 +11,7 @@ import PDFKit
 class FilesViewController: UIViewController, DocumentDelegate {
     
     var documentPicker: DocumentPicker!
+    var pdfURL: URL!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,15 +64,22 @@ class FilesViewController: UIViewController, DocumentDelegate {
                 let docURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
                 let contents = try FileManager.default.contentsOfDirectory(at: docURL, includingPropertiesForKeys: [.fileResourceTypeKey], options: .skipsHiddenFiles)
                 for url in contents {
-                    if url.description.contains("test.pdf") {
+                    if url.description.contains("nyuu.pdf") {
                        // its your file! do what you want with it!
                         print(url)
+                        self.pdfURL = url
+                        self.performSegue(withIdentifier: "pdfSegue", sender: self)
                     }
                 }
             } catch {
                 print("could not locate pdf file !!!!!!!")
             }
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! PDFViewController
+        destinationVC.pdfURL = self.pdfURL
     }
     
     @IBAction func uploadFile(_ sender: Any) {

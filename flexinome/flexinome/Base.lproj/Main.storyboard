@@ -165,10 +165,29 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Library" id="bbW-lf-pd3"/>
+                    <connections>
+                        <segue destination="m0C-OB-ttC" kind="show" identifier="pdfSegue" id="nE5-hi-Ttg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="So7-Od-wve" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="705.46875" y="745.82723279648599"/>
+            <point key="canvasLocation" x="705" y="763"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="fMB-fC-Xls">
+            <objects>
+                <viewController storyboardIdentifier="pdfScene" id="m0C-OB-ttC" customClass="PDFViewController" customModule="flexinome" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8Al-po-2My">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="c36-Jz-MUn"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="15l-Cd-Sue"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mxa-dy-xBN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1359" y="763"/>
         </scene>
         <!--Metronome-->
         <scene sceneID="l6t-jj-C57">
