@@ -113,18 +113,62 @@
         <!--Library-->
         <scene sceneID="9p2-0d-mro">
             <objects>
-                <viewController id="AMe-z3-iRy" sceneMemberID="viewController">
+                <viewController id="AMe-z3-iRy" customClass="FilesViewController" customModule="flexinome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cjB-GJ-cm1">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SXW-n5-gx5">
+                                <rect key="frame" x="358.5" y="673" width="307" height="68"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="View PDF">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="viewPDF:" destination="AMe-z3-iRy" eventType="touchUpInside" id="NP2-GA-kji"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S5F-fh-tzK">
+                                <rect key="frame" x="358.5" y="1217.5" width="307" height="68.5"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Upload Music">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="uploadFile:" destination="AMe-z3-iRy" eventType="touchUpInside" id="3gp-w5-nAP"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="bAX-bn-zO4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SXW-n5-gx5" firstAttribute="width" secondItem="cjB-GJ-cm1" secondAttribute="width" multiplier="0.3" id="DZa-jH-Cal"/>
+                            <constraint firstItem="S5F-fh-tzK" firstAttribute="centerX" secondItem="bAX-bn-zO4" secondAttribute="centerX" id="Nhw-J3-Xac"/>
+                            <constraint firstItem="S5F-fh-tzK" firstAttribute="width" secondItem="cjB-GJ-cm1" secondAttribute="width" multiplier="0.3" id="Q4w-dn-uIT"/>
+                            <constraint firstItem="SXW-n5-gx5" firstAttribute="height" secondItem="cjB-GJ-cm1" secondAttribute="height" multiplier="0.05" id="cIm-r3-s86"/>
+                            <constraint firstItem="SXW-n5-gx5" firstAttribute="centerY" secondItem="bAX-bn-zO4" secondAttribute="centerY" id="e0g-oe-md2"/>
+                            <constraint firstItem="S5F-fh-tzK" firstAttribute="bottom" secondItem="bAX-bn-zO4" secondAttribute="bottom" constant="-80" id="wct-CW-ob4"/>
+                            <constraint firstItem="SXW-n5-gx5" firstAttribute="centerX" secondItem="bAX-bn-zO4" secondAttribute="centerX" id="woR-bc-hqp"/>
+                            <constraint firstItem="S5F-fh-tzK" firstAttribute="height" secondItem="cjB-GJ-cm1" secondAttribute="height" multiplier="0.05" id="xIm-JQ-FYT"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Library" id="bbW-lf-pd3"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="So7-Od-wve" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="706" y="746"/>
+            <point key="canvasLocation" x="705.46875" y="745.82723279648599"/>
         </scene>
         <!--Metronome-->
         <scene sceneID="l6t-jj-C57">
