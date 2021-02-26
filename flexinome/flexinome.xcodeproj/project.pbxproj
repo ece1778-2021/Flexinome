@@ -45,6 +45,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5437126B25E972E8004B29CC /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DECCB64925E4C43000951EFA /* ViewController.swift */,
+				DEE0EDC425E65BFB00C12F4C /* PDFViewController.swift */,
+				DECCB65D25E5B6FB00951EFA /* FilesViewController.swift */,
+				DECCB65A25E5B45500951EFA /* MetronomeViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		5437126D25E97330004B29CC /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				DECCB65025E4C43100951EFA /* LaunchScreen.storyboard */,
+				DECCB64B25E4C43000951EFA /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		DECCB63925E4C43000951EFA = {
 			isa = PBXGroup;
 			children = (
@@ -64,16 +84,12 @@
 		DECCB64425E4C43000951EFA /* flexinome */ = {
 			isa = PBXGroup;
 			children = (
+				5437126D25E97330004B29CC /* Storyboards */,
+				5437126B25E972E8004B29CC /* Controllers */,
 				DECCB64525E4C43000951EFA /* AppDelegate.swift */,
 				DECCB64725E4C43000951EFA /* SceneDelegate.swift */,
-				DECCB64925E4C43000951EFA /* ViewController.swift */,
-				DECCB64B25E4C43000951EFA /* Main.storyboard */,
-				DEE0EDC425E65BFB00C12F4C /* PDFViewController.swift */,
 				DEE0EDBF25E6355D00C12F4C /* DocumentPicker.swift */,
-				DECCB65D25E5B6FB00951EFA /* FilesViewController.swift */,
-				DECCB65A25E5B45500951EFA /* MetronomeViewController.swift */,
 				DECCB64E25E4C43100951EFA /* Assets.xcassets */,
-				DECCB65025E4C43100951EFA /* LaunchScreen.storyboard */,
 				DECCB65325E4C43100951EFA /* Info.plist */,
 			);
 			path = flexinome;
