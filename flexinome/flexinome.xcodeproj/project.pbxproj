@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82CF79A04AB517CA1F341240 /* Pods_flexinome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D8892D6D23DE4899642F33 /* Pods_flexinome.framework */; };
 		DECCB64625E4C43000951EFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB64525E4C43000951EFA /* AppDelegate.swift */; };
 		DECCB64825E4C43000951EFA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB64725E4C43000951EFA /* SceneDelegate.swift */; };
 		DECCB64A25E4C43000951EFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB64925E4C43000951EFA /* ViewController.swift */; };
@@ -20,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		657A25B8B539EB0B3C401889 /* Pods-flexinome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flexinome.debug.xcconfig"; path = "Target Support Files/Pods-flexinome/Pods-flexinome.debug.xcconfig"; sourceTree = "<group>"; };
+		75D8892D6D23DE4899642F33 /* Pods_flexinome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_flexinome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECCB64225E4C43000951EFA /* flexinome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = flexinome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECCB64525E4C43000951EFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DECCB64725E4C43000951EFA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +35,7 @@
 		DECCB65D25E5B6FB00951EFA /* FilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesViewController.swift; sourceTree = "<group>"; };
 		DEE0EDBF25E6355D00C12F4C /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
 		DEE0EDC425E65BFB00C12F4C /* PDFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
+		E65BA932D929A88228EB15D2 /* Pods-flexinome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flexinome.release.xcconfig"; path = "Target Support Files/Pods-flexinome/Pods-flexinome.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82CF79A04AB517CA1F341240 /* Pods_flexinome.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +75,8 @@
 			children = (
 				DECCB64425E4C43000951EFA /* flexinome */,
 				DECCB64325E4C43000951EFA /* Products */,
+				E865DB9F53E2A167671DE672 /* Pods */,
+				EFECAA714B0B60776CACEC8F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,6 +102,24 @@
 			path = flexinome;
 			sourceTree = "<group>";
 		};
+		E865DB9F53E2A167671DE672 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				657A25B8B539EB0B3C401889 /* Pods-flexinome.debug.xcconfig */,
+				E65BA932D929A88228EB15D2 /* Pods-flexinome.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		EFECAA714B0B60776CACEC8F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				75D8892D6D23DE4899642F33 /* Pods_flexinome.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -102,6 +127,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DECCB65625E4C43100951EFA /* Build configuration list for PBXNativeTarget "flexinome" */;
 			buildPhases = (
+				4975B9FD8EF45102BDAD7736 /* [CP] Check Pods Manifest.lock */,
 				DECCB63E25E4C43000951EFA /* Sources */,
 				DECCB63F25E4C43000951EFA /* Frameworks */,
 				DECCB64025E4C43000951EFA /* Resources */,
@@ -159,6 +185,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4975B9FD8EF45102BDAD7736 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-flexinome-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DECCB63E25E4C43000951EFA /* Sources */ = {
@@ -315,6 +366,7 @@
 		};
 		DECCB65725E4C43100951EFA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 657A25B8B539EB0B3C401889 /* Pods-flexinome.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -334,6 +386,7 @@
 		};
 		DECCB65825E4C43100951EFA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E65BA932D929A88228EB15D2 /* Pods-flexinome.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
