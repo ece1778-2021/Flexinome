@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5437127525E9888A004B29CC /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5437127425E9888A004B29CC /* Utilities.swift */; };
 		82CF79A04AB517CA1F341240 /* Pods_flexinome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D8892D6D23DE4899642F33 /* Pods_flexinome.framework */; };
 		DECCB64625E4C43000951EFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB64525E4C43000951EFA /* AppDelegate.swift */; };
 		DECCB64825E4C43000951EFA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB64725E4C43000951EFA /* SceneDelegate.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5437127425E9888A004B29CC /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = ../../../../../Utilities.swift; sourceTree = "<group>"; };
 		657A25B8B539EB0B3C401889 /* Pods-flexinome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flexinome.debug.xcconfig"; path = "Target Support Files/Pods-flexinome/Pods-flexinome.debug.xcconfig"; sourceTree = "<group>"; };
 		75D8892D6D23DE4899642F33 /* Pods_flexinome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_flexinome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECCB64225E4C43000951EFA /* flexinome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = flexinome.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +72,14 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		5437127325E98865004B29CC /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				5437127425E9888A004B29CC /* Utilities.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		DECCB63925E4C43000951EFA = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +101,7 @@
 		DECCB64425E4C43000951EFA /* flexinome */ = {
 			isa = PBXGroup;
 			children = (
+				5437127325E98865004B29CC /* Helpers */,
 				5437126D25E97330004B29CC /* Storyboards */,
 				5437126B25E972E8004B29CC /* Controllers */,
 				DECCB64525E4C43000951EFA /* AppDelegate.swift */,
@@ -108,7 +119,6 @@
 				657A25B8B539EB0B3C401889 /* Pods-flexinome.debug.xcconfig */,
 				E65BA932D929A88228EB15D2 /* Pods-flexinome.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -222,6 +232,7 @@
 				DECCB65E25E5B6FB00951EFA /* FilesViewController.swift in Sources */,
 				DEE0EDC025E6355D00C12F4C /* DocumentPicker.swift in Sources */,
 				DEE0EDC525E65BFB00C12F4C /* PDFViewController.swift in Sources */,
+				5437127525E9888A004B29CC /* Utilities.swift in Sources */,
 				DECCB64825E4C43000951EFA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -196,14 +196,58 @@
                     <view key="view" contentMode="scaleToFill" id="6Yw-gO-MQ4">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="120" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5r1-pR-6jF" userLabel="tempoTextField">
+                                <rect key="frame" x="457" y="150" width="110" height="42.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="egK-sA-h2h"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Daa-3J-8P0" userLabel="playButton">
+                                <rect key="frame" x="437" y="1004" width="150" height="102"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="102" id="OaT-ZS-5jj"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="WIj-eN-E2K"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Start">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="playButtonTapped:" destination="Lyk-Gh-Vn9" eventType="touchUpInside" id="aNU-TU-Iph"/>
+                                </connections>
+                            </button>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="120" minimumValue="20" maximumValue="500" translatesAutoresizingMaskIntoConstraints="NO" id="wSf-X2-Fbz">
+                                <rect key="frame" x="465" y="232.5" width="94" height="32"/>
+                                <connections>
+                                    <action selector="tempoStepperChanged:" destination="Lyk-Gh-Vn9" eventType="valueChanged" id="XIE-5q-ZMA"/>
+                                </connections>
+                            </stepper>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Kgc-ft-DyS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="5r1-pR-6jF" firstAttribute="top" secondItem="Kgc-ft-DyS" secondAttribute="top" constant="100" id="5BI-p3-MUt"/>
+                            <constraint firstItem="Daa-3J-8P0" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="5Kn-eF-KH8"/>
+                            <constraint firstItem="5r1-pR-6jF" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="8Kd-KM-Hlh"/>
+                            <constraint firstItem="Kgc-ft-DyS" firstAttribute="bottom" secondItem="Daa-3J-8P0" secondAttribute="bottom" constant="260" id="tz5-7t-v8w"/>
+                            <constraint firstItem="wSf-X2-Fbz" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="wda-qi-tM1"/>
+                            <constraint firstItem="wSf-X2-Fbz" firstAttribute="top" secondItem="5r1-pR-6jF" secondAttribute="bottom" constant="40" id="zVn-Bn-yr6"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Metronome" largeTitleDisplayMode="always" id="ugE-VR-gWW"/>
+                    <connections>
+                        <outlet property="playButton" destination="Daa-3J-8P0" id="r1w-Kq-UAP"/>
+                        <outlet property="tempoStepper" destination="wSf-X2-Fbz" id="ISF-Xk-scz"/>
+                        <outlet property="tempoTextField" destination="5r1-pR-6jF" id="95H-Ol-s1Z"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mlt-Yr-BPf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1359" y="89"/>
+            <point key="canvasLocation" x="1358.7890625" y="88.726207906295741"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jjd-kk-mm0">
@@ -225,6 +269,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
