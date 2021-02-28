@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -110,7 +111,7 @@
             </objects>
             <point key="canvasLocation" x="706.0546875" y="88.726207906295741"/>
         </scene>
-        <!--Library-->
+        <!--Sheet Music Library-->
         <scene sceneID="9p2-0d-mro">
             <objects>
                 <viewController id="AMe-z3-iRy" customClass="FilesViewController" customModule="flexinome" customModuleProvider="target" sceneMemberID="viewController">
@@ -118,24 +119,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SXW-n5-gx5">
-                                <rect key="frame" x="358.5" y="673" width="307" height="68"/>
-                                <color key="backgroundColor" systemColor="systemBlueColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="View PDF">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="viewPDF:" destination="AMe-z3-iRy" eventType="touchUpInside" id="NP2-GA-kji"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S5F-fh-tzK">
-                                <rect key="frame" x="358.5" y="1217.5" width="307" height="68.5"/>
+                                <rect key="frame" x="358.5" y="1267.5" width="307" height="68.5"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Upload Music">
@@ -150,22 +135,51 @@
                                     <action selector="uploadFile:" destination="AMe-z3-iRy" eventType="touchUpInside" id="3gp-w5-nAP"/>
                                 </connections>
                             </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1T3-uW-3oY">
+                                <rect key="frame" x="25.5" y="106" width="973" height="1093"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="PNX-rd-wT9">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="01W-Rb-aQO">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0lF-Tb-AuL">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="4db-c3-5yb">
+                                <rect key="frame" x="256" y="50" width="512" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bAX-bn-zO4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="SXW-n5-gx5" firstAttribute="width" secondItem="cjB-GJ-cm1" secondAttribute="width" multiplier="0.3" id="DZa-jH-Cal"/>
+                            <constraint firstItem="1T3-uW-3oY" firstAttribute="top" secondItem="4db-c3-5yb" secondAttribute="bottom" id="0KI-aW-UUo"/>
+                            <constraint firstItem="4db-c3-5yb" firstAttribute="centerX" secondItem="bAX-bn-zO4" secondAttribute="centerX" id="7P0-BE-nyx"/>
+                            <constraint firstItem="4db-c3-5yb" firstAttribute="width" secondItem="cjB-GJ-cm1" secondAttribute="width" multiplier="0.5" id="BKU-Jw-yya"/>
+                            <constraint firstItem="1T3-uW-3oY" firstAttribute="centerX" secondItem="bAX-bn-zO4" secondAttribute="centerX" id="Etc-d7-QgR"/>
                             <constraint firstItem="S5F-fh-tzK" firstAttribute="centerX" secondItem="bAX-bn-zO4" secondAttribute="centerX" id="Nhw-J3-Xac"/>
                             <constraint firstItem="S5F-fh-tzK" firstAttribute="width" secondItem="cjB-GJ-cm1" secondAttribute="width" multiplier="0.3" id="Q4w-dn-uIT"/>
-                            <constraint firstItem="SXW-n5-gx5" firstAttribute="height" secondItem="cjB-GJ-cm1" secondAttribute="height" multiplier="0.05" id="cIm-r3-s86"/>
-                            <constraint firstItem="SXW-n5-gx5" firstAttribute="centerY" secondItem="bAX-bn-zO4" secondAttribute="centerY" id="e0g-oe-md2"/>
-                            <constraint firstItem="S5F-fh-tzK" firstAttribute="bottom" secondItem="bAX-bn-zO4" secondAttribute="bottom" constant="-80" id="wct-CW-ob4"/>
-                            <constraint firstItem="SXW-n5-gx5" firstAttribute="centerX" secondItem="bAX-bn-zO4" secondAttribute="centerX" id="woR-bc-hqp"/>
+                            <constraint firstItem="4db-c3-5yb" firstAttribute="top" secondItem="bAX-bn-zO4" secondAttribute="top" id="VEy-Yh-lFh"/>
+                            <constraint firstItem="1T3-uW-3oY" firstAttribute="width" secondItem="cjB-GJ-cm1" secondAttribute="width" multiplier="0.95" id="o15-mb-Lj0"/>
+                            <constraint firstItem="1T3-uW-3oY" firstAttribute="height" secondItem="cjB-GJ-cm1" secondAttribute="height" multiplier="0.8" id="rd8-fE-IDL"/>
+                            <constraint firstItem="S5F-fh-tzK" firstAttribute="bottom" secondItem="bAX-bn-zO4" secondAttribute="bottom" constant="-30" id="wct-CW-ob4"/>
                             <constraint firstItem="S5F-fh-tzK" firstAttribute="height" secondItem="cjB-GJ-cm1" secondAttribute="height" multiplier="0.05" id="xIm-JQ-FYT"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Library" id="bbW-lf-pd3"/>
+                    <navigationItem key="navigationItem" title="Sheet Music Library" id="bbW-lf-pd3"/>
                     <connections>
+                        <outlet property="collectionView" destination="1T3-uW-3oY" id="jcL-c1-0EH"/>
+                        <outlet property="searchBar" destination="4db-c3-5yb" id="wPU-tC-TyO"/>
                         <segue destination="m0C-OB-ttC" kind="show" identifier="pdfSegue" id="nE5-hi-Ttg"/>
                     </connections>
                 </viewController>

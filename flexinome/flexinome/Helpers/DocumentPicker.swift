@@ -40,9 +40,9 @@ open class DocumentPicker: NSObject {
         self.delegate = delegate
     }
 
-    public func displayPicker() {
+    public func displayPicker() {   
         
-        /// pick movies and images
+        /// pick pdfs and images
         self.pickerController = UIDocumentPickerViewController(documentTypes: [kUTTypePDF as String, kUTTypeImage as String], in: .import)
         self.pickerController!.delegate = self
         self.presentationController?.present(self.pickerController!, animated: true)
