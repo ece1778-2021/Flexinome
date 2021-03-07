@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5437127525E9888A004B29CC /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5437127425E9888A004B29CC /* Utilities.swift */; };
+		543CB84025F40FAF008FCBAF /* TimeSignatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543CB83F25F40FAF008FCBAF /* TimeSignatureViewController.swift */; };
 		82CF79A04AB517CA1F341240 /* Pods_flexinome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D8892D6D23DE4899642F33 /* Pods_flexinome.framework */; };
 		DE19C25C25EB58D80072A81F /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE19C25A25EB58D80072A81F /* MyCollectionViewCell.swift */; };
 		DE19C25D25EB58D80072A81F /* MyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE19C25B25EB58D80072A81F /* MyCollectionViewCell.xib */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		5437127425E9888A004B29CC /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		543CB83F25F40FAF008FCBAF /* TimeSignatureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignatureViewController.swift; sourceTree = "<group>"; };
 		657A25B8B539EB0B3C401889 /* Pods-flexinome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flexinome.debug.xcconfig"; path = "Target Support Files/Pods-flexinome/Pods-flexinome.debug.xcconfig"; sourceTree = "<group>"; };
 		75D8892D6D23DE4899642F33 /* Pods_flexinome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_flexinome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE19C25A25EB58D80072A81F /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				DEE0EDC425E65BFB00C12F4C /* PDFViewController.swift */,
 				DECCB65D25E5B6FB00951EFA /* FilesViewController.swift */,
 				DECCB65A25E5B45500951EFA /* MetronomeViewController.swift */,
+				543CB83F25F40FAF008FCBAF /* TimeSignatureViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				DECCB64625E4C43000951EFA /* AppDelegate.swift in Sources */,
 				DECCB65E25E5B6FB00951EFA /* FilesViewController.swift in Sources */,
 				DEE0EDC025E6355D00C12F4C /* DocumentPicker.swift in Sources */,
+				543CB84025F40FAF008FCBAF /* TimeSignatureViewController.swift in Sources */,
 				DEE0EDC525E65BFB00C12F4C /* PDFViewController.swift in Sources */,
 				5437127525E9888A004B29CC /* Utilities.swift in Sources */,
 				DECCB64825E4C43000951EFA /* SceneDelegate.swift in Sources */,
@@ -390,7 +394,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZF3ZR98PY4;
+				DEVELOPMENT_TEAM = QXSCH4WJLZ;
 				INFOPLIST_FILE = flexinome/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -410,7 +414,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZF3ZR98PY4;
+				DEVELOPMENT_TEAM = QXSCH4WJLZ;
 				INFOPLIST_FILE = flexinome/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

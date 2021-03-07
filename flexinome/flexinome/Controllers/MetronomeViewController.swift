@@ -13,6 +13,8 @@ class MetronomeViewController: UIViewController {
     @IBOutlet weak var tempoTextField: UITextField!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var tempoStepper: UIStepper!
+    @IBOutlet weak var timeSignatureButton: UIButton!
+    
     
     private let metronome = AKMetronome()
     
@@ -24,10 +26,25 @@ class MetronomeViewController: UIViewController {
         AKManager.output = metronome
         do { try AKManager.start() }
         catch {
-            print("Error: cannot start AudioKit")
+            print("Error: cannot start AudioKit engine")
             return
         }
+        
+        // initialize tempo and time signature
+        tempoTextField.text = "120"
         tempoStepper.value = 120
+
+        timeSignatureButton.setTitle("4/4", for: .normal)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.metronome.stop()
+        do { try AKManager.stop() }
+        catch {
+            print("Error: cannot stop AudioKit engine")
+            return
+        }
     }
     
     func sanitizeTempoTextField() {
@@ -40,7 +57,21 @@ class MetronomeViewController: UIViewController {
             tempoTextField.text = "120"
         }
     }
+
+
+    // set the time signature of the beats (used by TimeSignatureViewController)
+    public func setTimeSignature(timeSignature: String) {
+        self.timeSignatureButton.setTitle(timeSignature, for: .normal)
+        
+        // update the metronome
+        let beatsPerMeasure = String(Array(timeSignature)[0])
+        metronome.subdivision = Int(beatsPerMeasure)!
+    }
     
+    
+// MARK: Interaction Action
+    
+// Start or stop the metronome
     @IBAction func playButtonTapped(_ sender: Any) {
         
         if metronome.isPlaying {
@@ -52,6 +83,8 @@ class MetronomeViewController: UIViewController {
             sanitizeTempoTextField()
             metronome.reset()
             metronome.tempo = Double(tempoTextField.text!)!
+            let beatsPerMeasure = String(Array((timeSignatureButton.titleLabel?.text)!)[0])
+            metronome.subdivision = Int(beatsPerMeasure)!
             metronome.restart()
             playButton.setTitle("Stop", for: .normal)
         }
@@ -64,6 +97,9 @@ class MetronomeViewController: UIViewController {
             metronome.tempo = tempoStepper.value
         }
     }
+    
+
+    
     /*
     // MARK: - Navigation
 
@@ -73,5 +109,16 @@ class MetronomeViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "timeSignatureSegue" {
+            
+            let ts = self.timeSignatureButton.titleLabel?.text ?? "4/4"
+            let controller = segue.destination as! TimeSignatureViewController
+            controller.setTimeSignature(timeSignature: ts)
+            
+        }
+    }
 
 }
