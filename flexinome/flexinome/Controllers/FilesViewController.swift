@@ -64,8 +64,8 @@ class FilesViewController: UIViewController, DocumentDelegate, UISearchBarDelega
                     do {
                         try pdfData?.write(to: actualPath, options: .atomic)
                         print("pdf successfully saved!")
-                        self.URLs.insert(url!, at: 0)
-                        self.filteredURLs.insert(url!, at: 0)
+                        self.URLs.insert(actualPath, at: 0)
+                        self.filteredURLs.insert(actualPath, at: 0)
                         self.collectionView.insertItems(at: [IndexPath(row: 0, section: 0)])
                     } catch {
                         print("Pdf could not be saved")
