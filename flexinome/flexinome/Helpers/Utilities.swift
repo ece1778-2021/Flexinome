@@ -19,4 +19,20 @@ extension UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    func hideNavigationBarWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dissmissOrShowNavBar))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dissmissOrShowNavBar() {
+        if self.navigationController?.isNavigationBarHidden == true {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        }
+        else {
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        }
+    }
+    
 }

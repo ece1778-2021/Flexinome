@@ -25,6 +25,7 @@ class PDFViewController: UIViewController {
                 pdfView.usePageViewController(true)
                 pdfView.document = document
             }
+            self.hideNavigationBarWhenTappedAround()
         }
         
         override func viewDidLayoutSubviews() {
