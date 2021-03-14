@@ -33,7 +33,7 @@
 		75D8892D6D23DE4899642F33 /* Pods_flexinome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_flexinome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE19C25A25EB58D80072A81F /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE19C25B25EB58D80072A81F /* MyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCollectionViewCell.xib; sourceTree = "<group>"; };
-		DE2F28F925FE4844005F1423 /* SongListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListViewController.swift; sourceTree = SOURCE_ROOT; };
+		DE2F28F925FE4844005F1423 /* SongListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SongListViewController.swift; path = flexinome/Controllers/SongListViewController.swift; sourceTree = SOURCE_ROOT; };
 		DE380A0A25FDD45400E31AEA /* SequencerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerViewController.swift; sourceTree = "<group>"; };
 		DECCB64225E4C43000951EFA /* flexinome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = flexinome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECCB64525E4C43000951EFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
