@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,7 @@
 		82CF79A04AB517CA1F341240 /* Pods_flexinome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D8892D6D23DE4899642F33 /* Pods_flexinome.framework */; };
 		DE19C25C25EB58D80072A81F /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE19C25A25EB58D80072A81F /* MyCollectionViewCell.swift */; };
 		DE19C25D25EB58D80072A81F /* MyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE19C25B25EB58D80072A81F /* MyCollectionViewCell.xib */; };
+		DE2F28FA25FE4844005F1423 /* SongListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2F28F925FE4844005F1423 /* SongListViewController.swift */; };
 		DE380A0B25FDD45400E31AEA /* SequencerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE380A0A25FDD45400E31AEA /* SequencerViewController.swift */; };
 		DECCB64625E4C43000951EFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB64525E4C43000951EFA /* AppDelegate.swift */; };
 		DECCB64825E4C43000951EFA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB64725E4C43000951EFA /* SceneDelegate.swift */; };
@@ -32,6 +33,7 @@
 		75D8892D6D23DE4899642F33 /* Pods_flexinome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_flexinome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE19C25A25EB58D80072A81F /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE19C25B25EB58D80072A81F /* MyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCollectionViewCell.xib; sourceTree = "<group>"; };
+		DE2F28F925FE4844005F1423 /* SongListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListViewController.swift; sourceTree = SOURCE_ROOT; };
 		DE380A0A25FDD45400E31AEA /* SequencerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerViewController.swift; sourceTree = "<group>"; };
 		DECCB64225E4C43000951EFA /* flexinome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = flexinome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECCB64525E4C43000951EFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 		5437126B25E972E8004B29CC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DE2F28F925FE4844005F1423 /* SongListViewController.swift */,
 				DECCB64925E4C43000951EFA /* ViewController.swift */,
 				DEE0EDC425E65BFB00C12F4C /* PDFViewController.swift */,
 				DECCB65D25E5B6FB00951EFA /* FilesViewController.swift */,
@@ -262,6 +265,7 @@
 				DE19C25C25EB58D80072A81F /* MyCollectionViewCell.swift in Sources */,
 				DECCB64625E4C43000951EFA /* AppDelegate.swift in Sources */,
 				DE380A0B25FDD45400E31AEA /* SequencerViewController.swift in Sources */,
+				DE2F28FA25FE4844005F1423 /* SongListViewController.swift in Sources */,
 				DECCB65E25E5B6FB00951EFA /* FilesViewController.swift in Sources */,
 				DEE0EDC025E6355D00C12F4C /* DocumentPicker.swift in Sources */,
 				543CB84025F40FAF008FCBAF /* TimeSignatureViewController.swift in Sources */,
@@ -416,7 +420,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QXSCH4WJLZ;
+				DEVELOPMENT_TEAM = ZF3ZR98PY4;
 				INFOPLIST_FILE = flexinome/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -436,7 +440,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QXSCH4WJLZ;
+				DEVELOPMENT_TEAM = ZF3ZR98PY4;
 				INFOPLIST_FILE = flexinome/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

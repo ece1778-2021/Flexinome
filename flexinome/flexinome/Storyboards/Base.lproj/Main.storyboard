@@ -206,12 +206,24 @@
         <!--Song List-->
         <scene sceneID="GQg-zJ-6Qw">
             <objects>
-                <viewController id="tOg-Ow-xW5" sceneMemberID="viewController">
+                <viewController id="tOg-Ow-xW5" customClass="SongListViewController" customModule="flexinome" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Z4m-hz-8ta">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8n7-MV-69X">
+                                <rect key="frame" x="10" y="60" width="1004" height="1229.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="f8R-h6-98S"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="8n7-MV-69X" firstAttribute="height" secondItem="Z4m-hz-8ta" secondAttribute="height" multiplier="0.9" id="1ZE-2M-c4e"/>
+                            <constraint firstItem="8n7-MV-69X" firstAttribute="centerX" secondItem="f8R-h6-98S" secondAttribute="centerX" id="D4e-rs-y1B"/>
+                            <constraint firstItem="8n7-MV-69X" firstAttribute="width" secondItem="Z4m-hz-8ta" secondAttribute="width" multiplier="0.98" id="Zbt-zq-kaG"/>
+                            <constraint firstItem="8n7-MV-69X" firstAttribute="top" secondItem="f8R-h6-98S" secondAttribute="top" constant="10" id="zmB-5u-1U1"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Song List" id="wgB-tY-3s8">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="dOT-v9-grb">
@@ -220,6 +232,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="8n7-MV-69X" id="9SC-94-djF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KFs-za-3eO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -232,10 +247,39 @@
                     <view key="view" contentMode="scaleToFill" id="vW7-sH-emb">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Song Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ifF-5H-5dF">
+                                <rect key="frame" x="307" y="60" width="410" height="41"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
+                                        <color key="value" systemColor="systemGrayColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="aMr-qR-BCf"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ifF-5H-5dF" firstAttribute="centerX" secondItem="aMr-qR-BCf" secondAttribute="centerX" id="1VT-pU-8Vq"/>
+                            <constraint firstItem="ifF-5H-5dF" firstAttribute="top" secondItem="aMr-qR-BCf" secondAttribute="top" constant="10" id="5eZ-bJ-ZuZ"/>
+                            <constraint firstItem="ifF-5H-5dF" firstAttribute="width" secondItem="vW7-sH-emb" secondAttribute="width" multiplier="0.4" id="8zb-wb-DHw"/>
+                            <constraint firstItem="ifF-5H-5dF" firstAttribute="height" secondItem="vW7-sH-emb" secondAttribute="height" multiplier="0.03" id="V4W-YI-AxW"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Sequencer" id="BxX-Uc-7Rp"/>
+                    <navigationItem key="navigationItem" title="Sequencer" id="BxX-Uc-7Rp">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="6Xp-FA-eB0">
+                            <connections>
+                                <action selector="saveSequencer:" destination="Uhe-ai-lCC" id="6cg-BH-3kr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="songTitle" destination="ifF-5H-5dF" id="lKw-JZ-vCV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dRn-WL-HOL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -314,7 +358,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="tOg-Ow-xW5" kind="show" id="GIl-gH-2dT"/>
+                                    <segue destination="tOg-Ow-xW5" kind="show" identifier="songListSegue" id="GIl-gH-2dT"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -492,6 +536,9 @@
         </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemTealColor">
             <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

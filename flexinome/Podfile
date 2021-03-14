@@ -8,5 +8,6 @@ target 'flexinome' do
   # Pods for flexinome
   pod 'AudioKit', '~> 4.11'
   pod 'SpreadsheetView'
+  pod 'KBNumberPad', '~> 1.0.1'
 
 end
