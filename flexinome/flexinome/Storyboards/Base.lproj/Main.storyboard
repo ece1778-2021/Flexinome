@@ -203,6 +203,44 @@
             </objects>
             <point key="canvasLocation" x="1358.7890625" y="762.95754026354314"/>
         </scene>
+        <!--Song List-->
+        <scene sceneID="GQg-zJ-6Qw">
+            <objects>
+                <viewController id="tOg-Ow-xW5" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Z4m-hz-8ta">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="f8R-h6-98S"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Song List" id="wgB-tY-3s8">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="dOT-v9-grb">
+                            <connections>
+                                <segue destination="Uhe-ai-lCC" kind="show" id="pne-yz-62v"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KFs-za-3eO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1359" y="-568"/>
+        </scene>
+        <!--Sequencer-->
+        <scene sceneID="pWw-Oc-k9s">
+            <objects>
+                <viewController storyboardIdentifier="sequencerScene" id="Uhe-ai-lCC" customClass="SequencerViewController" customModule="flexinome" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vW7-sH-emb">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="aMr-qR-BCf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Sequencer" id="BxX-Uc-7Rp"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dRn-WL-HOL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2024" y="-568"/>
+        </scene>
         <!--Metronome-->
         <scene sceneID="l6t-jj-C57">
             <objects>
@@ -263,16 +301,36 @@
                                     <segue destination="GyC-KO-ZqX" kind="presentation" identifier="timeSignatureSegue" id="w3Y-E3-CWU"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FrF-X3-RIN">
+                                <rect key="frame" x="307" y="1106" width="410" height="109.5"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Song List">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="tOg-Ow-xW5" kind="show" id="GIl-gH-2dT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Kgc-ft-DyS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="FrF-X3-RIN" firstAttribute="centerX" secondItem="Kgc-ft-DyS" secondAttribute="centerX" id="0TJ-1A-mcQ"/>
                             <constraint firstItem="5r1-pR-6jF" firstAttribute="top" secondItem="Kgc-ft-DyS" secondAttribute="top" constant="196" id="5BI-p3-MUt"/>
                             <constraint firstItem="Daa-3J-8P0" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="5Kn-eF-KH8"/>
                             <constraint firstItem="lPM-sM-xZ1" firstAttribute="top" secondItem="Kgc-ft-DyS" secondAttribute="top" constant="211" id="6RK-dM-A4k"/>
                             <constraint firstItem="5r1-pR-6jF" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="8Kd-KM-Hlh"/>
+                            <constraint firstItem="FrF-X3-RIN" firstAttribute="top" secondItem="Daa-3J-8P0" secondAttribute="bottom" constant="20" id="8WG-vg-zdY"/>
+                            <constraint firstItem="FrF-X3-RIN" firstAttribute="width" secondItem="6Yw-gO-MQ4" secondAttribute="width" multiplier="0.4" id="DBh-g2-GWs"/>
                             <constraint firstItem="Daa-3J-8P0" firstAttribute="height" secondItem="Kgc-ft-DyS" secondAttribute="height" multiplier="0.08" id="Kdo-Dm-t0V"/>
                             <constraint firstItem="Kgc-ft-DyS" firstAttribute="trailing" secondItem="lPM-sM-xZ1" secondAttribute="trailing" constant="150" id="LEN-9w-NWb"/>
+                            <constraint firstItem="FrF-X3-RIN" firstAttribute="height" secondItem="6Yw-gO-MQ4" secondAttribute="height" multiplier="0.08" id="La8-t8-wcf"/>
                             <constraint firstItem="lPM-sM-xZ1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5r1-pR-6jF" secondAttribute="trailing" constant="8" symbolic="YES" id="cLH-Ze-5wR"/>
                             <constraint firstItem="Daa-3J-8P0" firstAttribute="width" secondItem="Kgc-ft-DyS" secondAttribute="width" multiplier="0.4" id="dGa-nX-nfH"/>
                             <constraint firstItem="Kgc-ft-DyS" firstAttribute="bottom" secondItem="Daa-3J-8P0" secondAttribute="bottom" constant="260" id="tz5-7t-v8w"/>

@@ -5,17 +5,21 @@ PODS:
   - AudioKit/Core (4.11.2)
   - AudioKit/UI (4.11.2):
     - AudioKit/Core
+  - SpreadsheetView (0.9.1)
 
 DEPENDENCIES:
   - AudioKit (~> 4.11)
+  - SpreadsheetView
 
 SPEC REPOS:
   trunk:
     - AudioKit
+    - SpreadsheetView
 
 SPEC CHECKSUMS:
   AudioKit: 57cc61d708f085763a031e5c3f87adae21dc4b59
+  SpreadsheetView: 688dbd19f2b355df0eb09e486266fd913a013449
 
-PODFILE CHECKSUM: 90b2eaa6648ac92a152e55dd18c4c57b40ffb4c7
+PODFILE CHECKSUM: 49d46e1778e598bfae2d32e3fc8fc7804a3f9a18
 
 COCOAPODS: 1.10.1

@@ -12,6 +12,7 @@
 		82CF79A04AB517CA1F341240 /* Pods_flexinome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D8892D6D23DE4899642F33 /* Pods_flexinome.framework */; };
 		DE19C25C25EB58D80072A81F /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE19C25A25EB58D80072A81F /* MyCollectionViewCell.swift */; };
 		DE19C25D25EB58D80072A81F /* MyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE19C25B25EB58D80072A81F /* MyCollectionViewCell.xib */; };
+		DE380A0B25FDD45400E31AEA /* SequencerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE380A0A25FDD45400E31AEA /* SequencerViewController.swift */; };
 		DECCB64625E4C43000951EFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB64525E4C43000951EFA /* AppDelegate.swift */; };
 		DECCB64825E4C43000951EFA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB64725E4C43000951EFA /* SceneDelegate.swift */; };
 		DECCB64A25E4C43000951EFA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB64925E4C43000951EFA /* ViewController.swift */; };
@@ -31,6 +32,7 @@
 		75D8892D6D23DE4899642F33 /* Pods_flexinome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_flexinome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE19C25A25EB58D80072A81F /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE19C25B25EB58D80072A81F /* MyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCollectionViewCell.xib; sourceTree = "<group>"; };
+		DE380A0A25FDD45400E31AEA /* SequencerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerViewController.swift; sourceTree = "<group>"; };
 		DECCB64225E4C43000951EFA /* flexinome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = flexinome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECCB64525E4C43000951EFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DECCB64725E4C43000951EFA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				DECCB65D25E5B6FB00951EFA /* FilesViewController.swift */,
 				DECCB65A25E5B45500951EFA /* MetronomeViewController.swift */,
 				543CB83F25F40FAF008FCBAF /* TimeSignatureViewController.swift */,
+				DE380A0A25FDD45400E31AEA /* SequencerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -150,6 +153,7 @@
 				DECCB63E25E4C43000951EFA /* Sources */,
 				DECCB63F25E4C43000951EFA /* Frameworks */,
 				DECCB64025E4C43000951EFA /* Resources */,
+				7BAFFE73071C9480E42D4180 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -229,6 +233,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7BAFFE73071C9480E42D4180 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-flexinome/Pods-flexinome-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-flexinome/Pods-flexinome-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-flexinome/Pods-flexinome-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -240,6 +261,7 @@
 				DECCB65B25E5B45500951EFA /* MetronomeViewController.swift in Sources */,
 				DE19C25C25EB58D80072A81F /* MyCollectionViewCell.swift in Sources */,
 				DECCB64625E4C43000951EFA /* AppDelegate.swift in Sources */,
+				DE380A0B25FDD45400E31AEA /* SequencerViewController.swift in Sources */,
 				DECCB65E25E5B6FB00951EFA /* FilesViewController.swift in Sources */,
 				DEE0EDC025E6355D00C12F4C /* DocumentPicker.swift in Sources */,
 				543CB84025F40FAF008FCBAF /* TimeSignatureViewController.swift in Sources */,
