@@ -7,11 +7,21 @@
 
 import UIKit
 import PDFKit
+import AudioKit
 
 class PDFViewController: UIViewController {
     
     var pdfView = PDFView()
     var pdfURL: URL!
+    
+    var metronomeData = MetronomeData(tempo: 120, beatValue: 4, noteValue: 4)
+    
+    private let playButton: UIButton = {
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+        return button
+    }()
     
     private let metronomeButton: UIButton = {
         let button = UIButton()
@@ -20,11 +30,16 @@ class PDFViewController: UIViewController {
         return button
     }()
     
+    // metronome embed in the pdf reader
+    private let metronome = AKMetronome()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.addSubview(pdfView)
+        view.addSubview(playButton)
         view.addSubview(metronomeButton)
+        playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
         metronomeButton.addTarget(self, action: #selector(metronomeButtonTapped), for: .touchUpInside)
         
         if let document = PDFDocument(url: pdfURL) {
@@ -34,20 +49,78 @@ class PDFViewController: UIViewController {
             pdfView.usePageViewController(true)
             pdfView.document = document
         }
-        self.hideNavigationBarWhenTappedAround()
+        
+        //self.hideNavigationBarWhenTappedAround()
+        
+        //initialize metronome value
+        metronome.tempo = 120
+        metronome.subdivision = 4
     }
     
     override func viewDidLayoutSubviews() {
         pdfView.frame = view.frame
-        
-        metronomeButton.frame = CGRect(x: view.frame.maxX-70 , y: view.frame.maxY*0.9, width: 60, height: 60)
+        playButton.frame = CGRect(x: view.frame.maxX-50 , y: view.frame.maxY*0.8, width: 30, height: 30)
+        metronomeButton.frame = CGRect(x: view.frame.maxX-60 , y: playButton.frame.maxY + 10, width: 50, height: 50)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // setup AKManager Engine
+        AKManager.output = metronome
+        do { try AKManager.start() }
+        catch {
+            print(self.classForCoder, " Error: cannot start AudioKit engine")
+            return
+        }
+        
+        // setup metronome
+        metronome.tempo = metronomeData.tempo
+        metronome.subdivision = metronomeData.beatValue
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        turnOffMetronomeCompletely()
+    }
+    
     
     // open metronome page in a modal view
     @IBAction func metronomeButtonTapped() {
         
-        let vc = self.storyboard?.instantiateViewController(identifier: "MetronomeViewController")
-        self.present(vc!, animated: true, completion: nil)
+        turnOffMetronomeCompletely()
+        
+        let vc = self.storyboard?.instantiateViewController(identifier: "MetronomeViewController") as! MetronomeViewController
+        vc.modalPresentationStyle = .fullScreen
+        vc.embededMode = true
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func playButtonTapped() {
+        
+        if metronome.isPlaying {
+            metronome.stop()
+            self.playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+        }
+        else {
+            metronome.start()
+            self.playButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: .normal)
+        }
+    }
+    
+    public func configureMetronomeData(data:MetronomeData) {
+        self.metronomeData = data
+    }
+    
+    func turnOffMetronomeCompletely() {
+        self.metronome.stop()
+        self.playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+        do { try AKManager.stop() }
+        catch {
+            print(self.classForCoder, " Error: cannot stop AudioKit engine")
+            return
+        }
     }
                     
 

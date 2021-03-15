@@ -35,4 +35,10 @@ extension UIViewController {
         }
     }
     
+    struct MetronomeData {
+        let tempo: Double
+        let beatValue: Int  // beats per measure
+        let noteValue: Int  // note value in a time signature
+    }
+    
 }

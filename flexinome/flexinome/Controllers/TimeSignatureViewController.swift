@@ -60,13 +60,21 @@ class TimeSignatureViewController: UIViewController {
     @IBAction func finishButtonTapped(_ sender: Any) {
         
         let ts = beatLabel.text! + "/" + noteLabel.text!
-        let pvc = presentingViewController as! UINavigationController
         
-        self.dismiss(animated: true, completion: {
-            
-            let metronomeVC = pvc.visibleViewController as! MetronomeViewController
+        guard let parent = self.presentingViewController else { return }
+        
+        
+        if parent.isKind(of: MetronomeViewController.self) {
+            let pvc = self.presentingViewController as! MetronomeViewController
+            pvc.setTimeSignature(timeSignature: ts)
+            self.dismiss(animated: true, completion:nil)
+        }
+        else if parent.isKind(of: UINavigationController.self) {
+            let pvc = self.presentingViewController as! UINavigationController
+            let metronomeVC = pvc.topViewController as! MetronomeViewController
             metronomeVC.setTimeSignature(timeSignature: ts)
-        })
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     /*

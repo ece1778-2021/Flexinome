@@ -361,20 +361,40 @@
                                     <segue destination="tOg-Ow-xW5" kind="show" identifier="songListSegue" id="GIl-gH-2dT"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zvh-Xi-ltC" userLabel="setButton">
+                                <rect key="frame" x="307" y="858.5" width="410" height="104"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Set">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="setButtonTapped:" destination="Lyk-Gh-Vn9" eventType="touchUpInside" id="PtC-g9-QvY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Kgc-ft-DyS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="FrF-X3-RIN" firstAttribute="centerX" secondItem="Kgc-ft-DyS" secondAttribute="centerX" id="0TJ-1A-mcQ"/>
+                            <constraint firstItem="Zvh-Xi-ltC" firstAttribute="height" secondItem="Daa-3J-8P0" secondAttribute="height" id="0vx-Ho-vO5"/>
                             <constraint firstItem="5r1-pR-6jF" firstAttribute="top" secondItem="Kgc-ft-DyS" secondAttribute="top" constant="196" id="5BI-p3-MUt"/>
                             <constraint firstItem="Daa-3J-8P0" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="5Kn-eF-KH8"/>
                             <constraint firstItem="lPM-sM-xZ1" firstAttribute="top" secondItem="Kgc-ft-DyS" secondAttribute="top" constant="211" id="6RK-dM-A4k"/>
                             <constraint firstItem="5r1-pR-6jF" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="8Kd-KM-Hlh"/>
                             <constraint firstItem="FrF-X3-RIN" firstAttribute="top" secondItem="Daa-3J-8P0" secondAttribute="bottom" constant="20" id="8WG-vg-zdY"/>
                             <constraint firstItem="FrF-X3-RIN" firstAttribute="width" secondItem="6Yw-gO-MQ4" secondAttribute="width" multiplier="0.4" id="DBh-g2-GWs"/>
+                            <constraint firstItem="Daa-3J-8P0" firstAttribute="top" secondItem="Zvh-Xi-ltC" secondAttribute="bottom" constant="20" id="G3T-dL-haW"/>
                             <constraint firstItem="Daa-3J-8P0" firstAttribute="height" secondItem="Kgc-ft-DyS" secondAttribute="height" multiplier="0.08" id="Kdo-Dm-t0V"/>
                             <constraint firstItem="Kgc-ft-DyS" firstAttribute="trailing" secondItem="lPM-sM-xZ1" secondAttribute="trailing" constant="150" id="LEN-9w-NWb"/>
                             <constraint firstItem="FrF-X3-RIN" firstAttribute="height" secondItem="6Yw-gO-MQ4" secondAttribute="height" multiplier="0.08" id="La8-t8-wcf"/>
+                            <constraint firstItem="Zvh-Xi-ltC" firstAttribute="width" secondItem="Daa-3J-8P0" secondAttribute="width" id="P4d-0d-WRV"/>
+                            <constraint firstItem="Zvh-Xi-ltC" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="Pny-jH-SEf"/>
                             <constraint firstItem="lPM-sM-xZ1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5r1-pR-6jF" secondAttribute="trailing" constant="8" symbolic="YES" id="cLH-Ze-5wR"/>
                             <constraint firstItem="Daa-3J-8P0" firstAttribute="width" secondItem="Kgc-ft-DyS" secondAttribute="width" multiplier="0.4" id="dGa-nX-nfH"/>
                             <constraint firstItem="Kgc-ft-DyS" firstAttribute="bottom" secondItem="Daa-3J-8P0" secondAttribute="bottom" constant="260" id="tz5-7t-v8w"/>
@@ -385,6 +405,7 @@
                     <navigationItem key="navigationItem" title="Metronome" largeTitleDisplayMode="always" id="ugE-VR-gWW"/>
                     <connections>
                         <outlet property="playButton" destination="Daa-3J-8P0" id="r1w-Kq-UAP"/>
+                        <outlet property="setButton" destination="Zvh-Xi-ltC" id="tCj-Cn-Nqf"/>
                         <outlet property="tempoStepper" destination="wSf-X2-Fbz" id="ISF-Xk-scz"/>
                         <outlet property="tempoTextField" destination="5r1-pR-6jF" id="95H-Ol-s1Z"/>
                         <outlet property="timeSignatureButton" destination="lPM-sM-xZ1" id="02x-f6-xiX"/>
@@ -468,7 +489,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="finishButtonTapped:" destination="GyC-KO-ZqX" eventType="touchUpInside" id="E2a-lu-J8D"/>
+                                    <action selector="finishButtonTapped:" destination="GyC-KO-ZqX" eventType="touchUpInside" id="0Bc-lg-GM0"/>
                                 </connections>
                             </button>
                         </subviews>
