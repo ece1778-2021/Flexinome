@@ -14,7 +14,8 @@ class PDFViewController: UIViewController {
     var pdfView = PDFView()
     var pdfURL: URL!
     
-    var metronomeData = MetronomeData(tempo: 120, beatValue: 4, noteValue: 4)
+    // metronome data used to sync between VCs
+    private var metronomeData = MetronomeData(tempo: 120, beatValue: 4, noteValue: 4)
     
     private let playButton: UIButton = {
         let button = UIButton()
@@ -74,9 +75,6 @@ class PDFViewController: UIViewController {
             return
         }
         
-        // setup metronome
-        metronome.tempo = metronomeData.tempo
-        metronome.subdivision = metronomeData.beatValue
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -94,6 +92,7 @@ class PDFViewController: UIViewController {
         let vc = self.storyboard?.instantiateViewController(identifier: "MetronomeViewController") as! MetronomeViewController
         vc.modalPresentationStyle = .fullScreen
         vc.embededMode = true
+        vc.configureMetronomeData(data: self.metronomeData)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -101,11 +100,13 @@ class PDFViewController: UIViewController {
         
         if metronome.isPlaying {
             metronome.stop()
-            self.playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+            playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
         }
         else {
+            metronome.tempo = metronomeData.tempo
+            metronome.subdivision = metronomeData.beatValue
             metronome.start()
-            self.playButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: .normal)
+            playButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: .normal)
         }
     }
     
@@ -114,8 +115,8 @@ class PDFViewController: UIViewController {
     }
     
     func turnOffMetronomeCompletely() {
-        self.metronome.stop()
-        self.playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+        metronome.stop()
+        playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
         do { try AKManager.stop() }
         catch {
             print(self.classForCoder, " Error: cannot stop AudioKit engine")

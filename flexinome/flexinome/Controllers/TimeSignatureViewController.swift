@@ -22,27 +22,26 @@ class TimeSignatureViewController: UIViewController {
     var beat = "4"
     var note = "4"
     
+    // metronome data used to sync between VCs
+    private var metronomeData = MetronomeData(tempo: 120, beatValue: 4, noteValue: 4)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        // initialize beat and note steppers
-
-        beatLabel.text = beat
-        noteLabel.text = note
-        self.beatStepper.value = Double(beat) ?? 4
-        self.noteStepper.value = Double(note) ?? 4
-
-    }
- 
-    public func memorizePreviousTempo(tempo: Double) {
-        self.previousTempo = tempo
     }
     
-    public func setTimeSignature(timeSignature: String) {
-        self.beat = String(Array(timeSignature)[0])
-        self.note = String(Array(timeSignature)[2])
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        beatLabel.text = String(metronomeData.beatValue)
+        noteLabel.text = String(metronomeData.noteValue)
+        beatStepper.value = Double(metronomeData.beatValue)
+        noteStepper.value = Double(metronomeData.noteValue)
+    }
+     
+    public func configureMetronomeData(data:MetronomeData) {
+        self.metronomeData = data
     }
 
     //MARK: - Interaction
@@ -59,20 +58,22 @@ class TimeSignatureViewController: UIViewController {
     // go back to metronome screen
     @IBAction func finishButtonTapped(_ sender: Any) {
         
-        let ts = beatLabel.text! + "/" + noteLabel.text!
+        let beat = Int(self.beatLabel.text!)!
+        let note = Int(self.noteLabel.text!)!
         
         guard let parent = self.presentingViewController else { return }
         
-        
         if parent.isKind(of: MetronomeViewController.self) {
             let pvc = self.presentingViewController as! MetronomeViewController
-            pvc.setTimeSignature(timeSignature: ts)
+            pvc.configureMetronomeData(data: MetronomeData(tempo: metronomeData.tempo, beatValue: beat, noteValue: note))
+            pvc.syncMetronome()
             self.dismiss(animated: true, completion:nil)
         }
         else if parent.isKind(of: UINavigationController.self) {
             let pvc = self.presentingViewController as! UINavigationController
             let metronomeVC = pvc.topViewController as! MetronomeViewController
-            metronomeVC.setTimeSignature(timeSignature: ts)
+            metronomeVC.configureMetronomeData(data: MetronomeData(tempo: metronomeData.tempo, beatValue: beat, noteValue: note))
+            metronomeVC.syncMetronome()
             self.dismiss(animated: true, completion: nil)
         }
     }

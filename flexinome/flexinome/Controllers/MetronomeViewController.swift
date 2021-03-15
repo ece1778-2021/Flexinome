@@ -22,27 +22,27 @@ class MetronomeViewController: UIViewController {
     
     private let metronome = AKMetronome()
     
+    // metronome data used to sync between VCs
+    private var metronomeData = MetronomeData(tempo: 120, beatValue: 4, noteValue: 4)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         self.hideKeyboardWhenTappedAround()
-        AKManager.output = metronome
-        
-        // initialize tempo and time signature
-        tempoTextField.text = "120"
-        tempoStepper.value = 120
-        timeSignatureButton.setTitle("4/4", for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        AKManager.output = metronome
         do { try AKManager.start() }
         catch {
             print("Error: cannot start AudioKit engine")
             return
         }
+        
+        syncMetronome()
     }
     
     override func viewDidLayoutSubviews() {
@@ -80,15 +80,21 @@ class MetronomeViewController: UIViewController {
             tempoTextField.text = "120"
         }
     }
-
-
-    // set the time signature of the beats (used by TimeSignatureViewController)
-    public func setTimeSignature(timeSignature: String) {
-        self.timeSignatureButton.setTitle(timeSignature, for: .normal)
+    
+    
+    // call by other VCs to sync metronome data
+    public func configureMetronomeData(data: MetronomeData) {
+        self.metronomeData = data
+    }
+    
+    public func syncMetronome() {
+        let ts = String(metronomeData.beatValue) + "/" + String(metronomeData.noteValue)
+        timeSignatureButton.setTitle(ts, for: .normal)
+        tempoTextField.text = String(Int(metronomeData.tempo))
+        tempoStepper.value = metronomeData.tempo
         
-        // update the metronome
-        let beatsPerMeasure = String(Array(timeSignature)[0])
-        metronome.subdivision = Int(beatsPerMeasure)!
+        metronome.subdivision = metronomeData.beatValue
+        metronome.tempo = metronomeData.tempo
     }
     
     
@@ -120,6 +126,7 @@ class MetronomeViewController: UIViewController {
             metronome.tempo = tempoStepper.value
         }
     }
+    
     @IBAction func setButtonTapped(_ sender: Any) {
         
         let pvc = self.parent as! UINavigationController
@@ -149,10 +156,12 @@ class MetronomeViewController: UIViewController {
         
         if segue.identifier == "timeSignatureSegue" {
             
-            let ts = self.timeSignatureButton.titleLabel?.text ?? "4/4"
-            let controller = segue.destination as! TimeSignatureViewController
-            controller.setTimeSignature(timeSignature: ts)
+            let beatVal = Int(String(Array((timeSignatureButton.titleLabel?.text)!)[0]))!
+            let noteVal = Int(String(Array((timeSignatureButton.titleLabel?.text)!)[2]))!
+            let tempo = Double(tempoTextField.text!)!
             
+            let controller = segue.destination as! TimeSignatureViewController
+            controller.configureMetronomeData(data: MetronomeData(tempo: tempo, beatValue: beatVal, noteValue: noteVal))
         }
         
 
