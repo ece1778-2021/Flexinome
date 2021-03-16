@@ -13,6 +13,8 @@
 		DE19C25C25EB58D80072A81F /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE19C25A25EB58D80072A81F /* MyCollectionViewCell.swift */; };
 		DE19C25D25EB58D80072A81F /* MyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE19C25B25EB58D80072A81F /* MyCollectionViewCell.xib */; };
 		DE2F28FA25FE4844005F1423 /* SongListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2F28F925FE4844005F1423 /* SongListViewController.swift */; };
+		DE2F28FE25FF463B005F1423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE2F28FD25FF463B005F1423 /* GoogleService-Info.plist */; };
+		DE2F291625FF48D7005F1423 /* FacialGestureCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2F291525FF48D7005F1423 /* FacialGestureCameraView.swift */; };
 		DE380A0B25FDD45400E31AEA /* SequencerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE380A0A25FDD45400E31AEA /* SequencerViewController.swift */; };
 		DECCB64625E4C43000951EFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB64525E4C43000951EFA /* AppDelegate.swift */; };
 		DECCB64825E4C43000951EFA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB64725E4C43000951EFA /* SceneDelegate.swift */; };
@@ -34,6 +36,8 @@
 		DE19C25A25EB58D80072A81F /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE19C25B25EB58D80072A81F /* MyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCollectionViewCell.xib; sourceTree = "<group>"; };
 		DE2F28F925FE4844005F1423 /* SongListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SongListViewController.swift; path = flexinome/Controllers/SongListViewController.swift; sourceTree = SOURCE_ROOT; };
+		DE2F28FD25FF463B005F1423 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DE2F291525FF48D7005F1423 /* FacialGestureCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacialGestureCameraView.swift; sourceTree = "<group>"; };
 		DE380A0A25FDD45400E31AEA /* SequencerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerViewController.swift; sourceTree = "<group>"; };
 		DECCB64225E4C43000951EFA /* flexinome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = flexinome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECCB64525E4C43000951EFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 				DEE0EDBF25E6355D00C12F4C /* DocumentPicker.swift */,
 				DE19C25A25EB58D80072A81F /* MyCollectionViewCell.swift */,
 				DE19C25B25EB58D80072A81F /* MyCollectionViewCell.xib */,
+				DE2F291525FF48D7005F1423 /* FacialGestureCameraView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -124,6 +129,7 @@
 				DECCB64725E4C43000951EFA /* SceneDelegate.swift */,
 				DECCB64E25E4C43100951EFA /* Assets.xcassets */,
 				DECCB65325E4C43100951EFA /* Info.plist */,
+				DE2F28FD25FF463B005F1423 /* GoogleService-Info.plist */,
 			);
 			path = flexinome;
 			sourceTree = "<group>";
@@ -157,6 +163,7 @@
 				DECCB63F25E4C43000951EFA /* Frameworks */,
 				DECCB64025E4C43000951EFA /* Resources */,
 				7BAFFE73071C9480E42D4180 /* [CP] Embed Pods Frameworks */,
+				E9021D8A678CB96AA25B2386 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -206,6 +213,7 @@
 			files = (
 				DECCB65225E4C43100951EFA /* LaunchScreen.storyboard in Resources */,
 				DECCB64F25E4C43100951EFA /* Assets.xcassets in Resources */,
+				DE2F28FE25FF463B005F1423 /* GoogleService-Info.plist in Resources */,
 				DE19C25D25EB58D80072A81F /* MyCollectionViewCell.xib in Resources */,
 				DECCB64D25E4C43000951EFA /* Main.storyboard in Resources */,
 			);
@@ -253,6 +261,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-flexinome/Pods-flexinome-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E9021D8A678CB96AA25B2386 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-flexinome/Pods-flexinome-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-flexinome/Pods-flexinome-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-flexinome/Pods-flexinome-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -269,6 +294,7 @@
 				DECCB65E25E5B6FB00951EFA /* FilesViewController.swift in Sources */,
 				DEE0EDC025E6355D00C12F4C /* DocumentPicker.swift in Sources */,
 				543CB84025F40FAF008FCBAF /* TimeSignatureViewController.swift in Sources */,
+				DE2F291625FF48D7005F1423 /* FacialGestureCameraView.swift in Sources */,
 				DEE0EDC525E65BFB00C12F4C /* PDFViewController.swift in Sources */,
 				5437127525E9888A004B29CC /* Utilities.swift in Sources */,
 				DECCB64825E4C43000951EFA /* SceneDelegate.swift in Sources */,
@@ -420,7 +446,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QXSCH4WJLZ;
+				DEVELOPMENT_TEAM = ZF3ZR98PY4;
 				INFOPLIST_FILE = flexinome/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -440,7 +466,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QXSCH4WJLZ;
+				DEVELOPMENT_TEAM = ZF3ZR98PY4;
 				INFOPLIST_FILE = flexinome/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -134,7 +134,7 @@ class SequencerViewController: UIViewController, SpreadsheetViewDataSource, Spre
 
                     // you can now cast it with the right type
                     if let dictFromJSON = decoded as? [String:Dictionary<String,String>] {
-                        print(dictFromJSON)
+//                        print(dictFromJSON)
                     }
                 } catch {
                     print(error.localizedDescription)

@@ -11,6 +11,8 @@ import AudioKit
 
 class PDFViewController: UIViewController {
     
+    @IBOutlet weak var cameraView: FacialGestureCameraView!
+    
     var pdfView = PDFView()
     var pdfURL: URL!
     
@@ -37,6 +39,7 @@ class PDFViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addCameraViewDelegate()
         view.addSubview(pdfView)
         view.addSubview(playButton)
         view.addSubview(metronomeButton)
@@ -47,7 +50,7 @@ class PDFViewController: UIViewController {
             pdfView.displayMode = .singlePage
             pdfView.autoScales = true
             pdfView.displayDirection = .horizontal
-            pdfView.usePageViewController(true)
+            pdfView.usePageViewController(true, withViewOptions: nil)
             pdfView.document = document
         }
         
@@ -58,6 +61,16 @@ class PDFViewController: UIViewController {
         metronome.subdivision = 4
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        startGestureDetection()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        stopGestureDetection()
+    }
+
     override func viewDidLayoutSubviews() {
         pdfView.frame = view.frame
         playButton.frame = CGRect(x: view.frame.maxX-50 , y: view.frame.maxY*0.8, width: 30, height: 30)
@@ -135,4 +148,51 @@ class PDFViewController: UIViewController {
     }
     */
 
+}
+
+
+extension PDFViewController {
+    
+    func addCameraViewDelegate() {
+        cameraView.delegate = self
+    }
+    
+    func startGestureDetection() {
+        cameraView.beginSession()
+    }
+    
+    func stopGestureDetection() {
+        cameraView.stopSession()
+    }
+    
+}
+
+extension PDFViewController: FacialGestureCameraViewDelegate {
+   
+    func doubleEyeBlinkDetected() {
+        print("Double Eye Blink Detected")
+    }
+
+    func smileDetected() {
+        print("Smile Detected")
+    }
+
+    func nodLeftDetected() {
+        print("Nod Left Detected")
+        pdfView.goToPreviousPage(nil)
+    }
+
+    func nodRightDetected() {
+        print("Nod Right Detected")
+        pdfView.goToNextPage(nil)
+    }
+
+    func leftEyeBlinkDetected() {
+        print("Left Eye Blink Detected")
+    }
+
+    func rightEyeBlinkDetected() {
+        print("Right Eye Blink Detected")
+    }
+    
 }

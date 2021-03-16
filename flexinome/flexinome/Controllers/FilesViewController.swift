@@ -58,20 +58,30 @@ class FilesViewController: UIViewController, DocumentDelegate, UISearchBarDelega
                     let fileURL = pickedDoc.fileURL
                     let url = URL(string: fileURL.absoluteString)
                     let pdfData = try? Data.init(contentsOf: url!)
-                    let resourceDocPath = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))[0]
-                    let pdfNameFromUrl = filename!.text! + ".pdf"
-                    let actualPath = resourceDocPath.appendingPathComponent(pdfNameFromUrl)
-                    do {
-                        try pdfData?.write(to: actualPath, options: .atomic)
-                        print("pdf successfully saved!")
-                        self.URLs.insert(actualPath, at: 0)
-                        self.filteredURLs.insert(actualPath, at: 0)
-                        self.collectionView.insertItems(at: [IndexPath(row: 0, section: 0)])
-                    } catch {
-                        print("Pdf could not be saved")
-                        print(error.localizedDescription)
+                    
+                    // add pdf
+                    let fileManager = FileManager.default
+                    let documentsURL =  fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+                    let musicPath = documentsURL.appendingPathComponent("music")
+                    do
+                    {
+                        try FileManager.default.createDirectory(atPath: musicPath.path, withIntermediateDirectories: true, attributes: nil)
+                        let actualPath = musicPath.appendingPathComponent(filename!.text! + ".pdf")
+                        do {
+                            try pdfData?.write(to: actualPath, options: .atomic)
+                            print("pdf successfully saved!")
+                            self.URLs.insert(actualPath, at: 0)
+                            self.filteredURLs.insert(actualPath, at: 0)
+                            self.collectionView.insertItems(at: [IndexPath(row: 0, section: 0)])
+                        } catch {
+                            print("Pdf could not be saved")
+                            print(error.localizedDescription)
+                        }
                     }
-
+                    catch let error as NSError
+                    {
+                        NSLog("Unable to create directory \(error.debugDescription)")
+                    }
                 }
             }))
             // 4. Present the alert.
@@ -82,8 +92,10 @@ class FilesViewController: UIViewController, DocumentDelegate, UISearchBarDelega
     func loadPDFs() {
         if #available(iOS 10.0, *) {
             do {
-                let docURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-                let contents = try FileManager.default.contentsOfDirectory(at: docURL, includingPropertiesForKeys: [.fileResourceTypeKey], options: .skipsHiddenFiles)
+                let fileManager = FileManager.default
+                let documentsURL =  fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+                let musicPath = documentsURL.appendingPathComponent("music")
+                let contents = try FileManager.default.contentsOfDirectory(at: musicPath, includingPropertiesForKeys: [.fileResourceTypeKey], options: .skipsHiddenFiles)
                 for url in contents {
                     self.URLs.append(url)
                 }

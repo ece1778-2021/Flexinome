@@ -9,5 +9,7 @@ target 'flexinome' do
   pod 'AudioKit', '~> 4.11'
   pod 'SpreadsheetView'
   pod 'KBNumberPad', '~> 1.0.1'
+  pod 'Firebase/MLVision'
+  pod 'Firebase/MLVisionFaceModel'
 
 end
