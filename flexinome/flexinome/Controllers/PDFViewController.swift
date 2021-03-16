@@ -48,9 +48,9 @@ class PDFViewController: UIViewController {
         
         if let document = PDFDocument(url: pdfURL) {
             pdfView.displayMode = .singlePage
-            pdfView.autoScales = true
+//            pdfView.autoScales = true
             pdfView.displayDirection = .horizontal
-            pdfView.usePageViewController(true, withViewOptions: nil)
+//            pdfView.usePageViewController(true, withViewOptions: nil)
             pdfView.document = document
         }
         
@@ -63,6 +63,8 @@ class PDFViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        pdfView.autoScales = true
+        pdfView.usePageViewController(true, withViewOptions: nil)
         startGestureDetection()
     }
     
@@ -170,7 +172,7 @@ extension PDFViewController {
 extension PDFViewController: FacialGestureCameraViewDelegate {
    
     func doubleEyeBlinkDetected() {
-        print("Double Eye Blink Detected")
+//        print("Double Eye Blink Detected")
     }
 
     func smileDetected() {
@@ -188,11 +190,11 @@ extension PDFViewController: FacialGestureCameraViewDelegate {
     }
 
     func leftEyeBlinkDetected() {
-        print("Left Eye Blink Detected")
+//        print("Left Eye Blink Detected")
     }
 
     func rightEyeBlinkDetected() {
-        print("Right Eye Blink Detected")
+//        print("Right Eye Blink Detected")
     }
     
 }
