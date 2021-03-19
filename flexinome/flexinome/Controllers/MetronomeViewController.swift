@@ -15,12 +15,17 @@ class MetronomeViewController: UIViewController {
     @IBOutlet weak var tempoStepper: UIStepper!
     @IBOutlet weak var timeSignatureButton: UIButton!
     @IBOutlet weak var setButton: UIButton!
-    
-    // When this is set, this VC will only be used to set the parameters of another metronome
-    // which will be used in other VCs
-    public var embededMode = false
+    @IBOutlet weak var barIndicatorLabel: UILabel!
     
     private let metronome = AKMetronome()
+    
+    // When this is set, this VC will only be used to set the parameters of another metronome
+    public var embededMode = false
+    
+    public var sequencerMode = false // play a preconfigured pattern (song)
+    private var beatCount = 0
+    private var sequencerData = [SequencerData]()
+    private var barCount = 0
     
     // metronome data used to sync between VCs
     private var metronomeData = MetronomeData(tempo: 120, beatValue: 4, noteValue: 4)
@@ -42,7 +47,15 @@ class MetronomeViewController: UIViewController {
             return
         }
         
-        syncMetronome()
+        if sequencerMode {
+            //self.metronome.callback = sequencerLogic
+            //self.barIndicatorLabel.isHidden = false
+        }
+        else {
+            self.barIndicatorLabel.isHidden = true
+            syncMetronome()
+        }
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -69,6 +82,9 @@ class MetronomeViewController: UIViewController {
             return
         }
     }
+    
+    
+    // MARK: - Metronome logic
     
     func sanitizeTempoTextField() {
         
@@ -97,26 +113,62 @@ class MetronomeViewController: UIViewController {
         metronome.tempo = metronomeData.tempo
     }
     
+    func sequencerLogic() {
+        self.beatCount += 1
+        // do some checking, update tempo and time sig
+    }
+    
+//    func loadSequencerData(data: jsonData) {
+//
+//        for i = 0 to data.length - 2 {
+//
+//            self.sequencerData.append(
+//                SequencerData(nextTempo: data[i].tempo,
+//                            nextBeatValue: data[i].timeSignature[0],
+//                            nextNoteValue: data[i].timeSignature[3],
+//                            nextSequenceStartAtBeat: data[i].bar + (data[i].timeSignature.top * data[i].repetition,
+//                            isEndOfSong: false))
+//                )
+//        }
+//
+//        // last sequence
+//        let e = data.length - 1
+//        self.sequencerData.append(
+//            SequencerData(nextTempo: data[e].tempo,
+//                        nextBeatValue: data[e].timeSignature[0],
+//                        nextNoteValue: data[e].timeSignature[3],
+//                        nextSequenceStartAtBeat: data[e].bar + (data[e].timeSignature.top * data[e].repetition,
+//                        isEndOfSong: true))
+//            )
+//
+//    }
+    
     
 // MARK: Interaction Action
     
 // Start or stop the metronome
     @IBAction func playButtonTapped(_ sender: Any) {
         
-        if metronome.isPlaying {
-            metronome.stop()
-            metronome.reset()
-            playButton.setTitle("Start", for: .normal)
+        if sequencerMode {
+            
         }
         else {
-            sanitizeTempoTextField()
-            metronome.reset()
-            metronome.tempo = Double(tempoTextField.text!)!
-            let beatsPerMeasure = String(Array((timeSignatureButton.titleLabel?.text)!)[0])
-            metronome.subdivision = Int(beatsPerMeasure)!
-            metronome.restart()
-            playButton.setTitle("Stop", for: .normal)
+            if metronome.isPlaying {
+                metronome.stop()
+                metronome.reset()
+                playButton.setTitle("Start", for: .normal)
+            }
+            else {
+                sanitizeTempoTextField()
+                metronome.reset()
+                metronome.tempo = Double(tempoTextField.text!)!
+                let beatsPerMeasure = String(Array((timeSignatureButton.titleLabel?.text)!)[0])
+                metronome.subdivision = Int(beatsPerMeasure)!
+                metronome.restart()
+                playButton.setTitle("Stop", for: .normal)
+            }
         }
+         
     }
     
     @IBAction func tempoStepperChanged(_ sender: Any) {

@@ -41,4 +41,12 @@ extension UIViewController {
         let noteValue: Int  // note value in a time signature
     }
     
+    struct SequencerData {
+        var nextTempo: Double
+        var nextBeatValue: Int
+        var nextNoteValue: Int
+        var nextSequenceStartAtBeat: Int // The position to play next pattern
+        var isEndOfSong: Bool = false // set to true for the last sequence 
+    }
+    
 }
