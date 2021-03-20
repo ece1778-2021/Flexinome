@@ -230,7 +230,7 @@ class TimeSignatureCell: Cell, UIPickerViewDelegate, UIPickerViewDataSource {
     static let identifier = "TimeSignatureCell"
 
     public let textField = UITextField()
-    let timeSignatures = ["", "1/4", "2/4", "3/4", "4/4", "5/4", "6/4", "7/4", "9/4", "2/8", "3/8", "6/8", "9/8", "12/8"]
+    let timeSignatures = ["1/4", "2/4", "3/4", "4/4", "5/4", "6/4", "7/4", "9/4", "2/8", "3/8", "6/8", "9/8"]
 
     public func setup() {
         let picker = UIPickerView()

@@ -63,8 +63,13 @@ class SongListViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         do {
             let jsonData = try Data(contentsOf: URLs[indexPath.row])
-            let json = try JSONSerialization.jsonObject(with: jsonData)
-            print(json)
+            let json = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as! Dictionary<String, Dictionary<String,String>>
+            let vc = self.storyboard?.instantiateViewController(identifier: "MetronomeViewController") as! MetronomeViewController
+            vc.modalPresentationStyle = .fullScreen
+            vc.embededMode = true
+            vc.songChosen = true
+            vc.sequencerDictionay = json
+            self.navigationController?.pushViewController(vc, animated: true)
        }
        catch {
            print(error)

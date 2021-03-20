@@ -22,6 +22,9 @@ class MetronomeViewController: UIViewController {
     // When this is set, this VC will only be used to set the parameters of another metronome
     public var embededMode = false
     
+    public var songChosen = false;
+    public var sequencerDictionay: [String: Dictionary<String,String>] = [:]
+        
     public var sequencerMode = false // play a preconfigured pattern (song)
     private var beatCount = 0
     private var sequencerData = [SequencerData]()
@@ -54,6 +57,10 @@ class MetronomeViewController: UIViewController {
         else {
             self.barIndicatorLabel.isHidden = true
             syncMetronome()
+        }
+        
+        if (songChosen) {
+            self.loadSequencerData()
         }
         
     }
@@ -118,30 +125,31 @@ class MetronomeViewController: UIViewController {
         // do some checking, update tempo and time sig
     }
     
-//    func loadSequencerData(data: jsonData) {
-//
-//        for i = 0 to data.length - 2 {
-//
-//            self.sequencerData.append(
-//                SequencerData(nextTempo: data[i].tempo,
-//                            nextBeatValue: data[i].timeSignature[0],
-//                            nextNoteValue: data[i].timeSignature[3],
-//                            nextSequenceStartAtBeat: data[i].bar + (data[i].timeSignature.top * data[i].repetition,
-//                            isEndOfSong: false))
-//                )
-//        }
-//
-//        // last sequence
-//        let e = data.length - 1
-//        self.sequencerData.append(
-//            SequencerData(nextTempo: data[e].tempo,
-//                        nextBeatValue: data[e].timeSignature[0],
-//                        nextNoteValue: data[e].timeSignature[3],
-//                        nextSequenceStartAtBeat: data[e].bar + (data[e].timeSignature.top * data[e].repetition,
-//                        isEndOfSong: true))
-//            )
-//
-//    }
+    func loadSequencerData() {
+                
+        for i in 1...sequencerDictionay.count {
+
+            let bar = Int(sequencerDictionay[String(i)]!["Bar"]!)!
+            let repetition = Int(sequencerDictionay[String(i)]!["Repetition"]!)!
+            let tempo = Double(sequencerDictionay[String(i)]!["Tempo"]!)!
+            let timeSignatureTop = Int(sequencerDictionay[String(i)]!["Time Signature"]!.prefix(1))!
+            let timeSignatureBottom = Int(sequencerDictionay[String(i)]!["Time Signature"]!.suffix(1))!
+            var endOfSong = false
+            
+            if (i == sequencerDictionay.count) {
+                endOfSong = true
+            }
+            
+            self.sequencerData.append(
+                SequencerData(nextTempo: tempo,
+                             nextBeatValue: timeSignatureTop,
+                             nextNoteValue: timeSignatureBottom,
+                             nextSequenceStartAtBeat: bar + (timeSignatureTop * repetition),
+                             isEndOfSong: endOfSong))
+        }
+        
+        print(sequencerData)
+    }
     
     
 // MARK: Interaction Action
