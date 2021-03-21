@@ -16,19 +16,22 @@ class MetronomeViewController: UIViewController {
     @IBOutlet weak var timeSignatureButton: UIButton!
     @IBOutlet weak var setButton: UIButton!
     @IBOutlet weak var barIndicatorLabel: UILabel!
+    @IBOutlet weak var sequencerModeIndicatorLabel: UILabel!
     
     private let metronome = AKMetronome()
     
     // When this is set, this VC will only be used to set the parameters of another metronome
     public var embededMode = false
     
-    public var songChosen = false;
+    /* data for sequencer */
     public var sequencerDictionay: [String: Dictionary<String,String>] = [:]
-        
     public var sequencerMode = false // play a preconfigured pattern (song)
     private var beatCount = 0
     private var sequencerData = [SequencerData]()
-    private var barCount = 0
+    private var currentSequence = 0 // the sequence currently playing
+    private var currentBar = 0 // the bar currently playing
+    private var notesInBar = 0 // the number of notes in a bar
+    private var notesCounter = 0 // the number of notes played, used to update bar status
     
     // metronome data used to sync between VCs
     private var metronomeData = MetronomeData(tempo: 120, beatValue: 4, noteValue: 4)
@@ -51,16 +54,15 @@ class MetronomeViewController: UIViewController {
         }
         
         if sequencerMode {
-            //self.metronome.callback = sequencerLogic
-            //self.barIndicatorLabel.isHidden = false
+            metronome.callback = sequencerLogic
+            loadSequencerData()
+            barIndicatorLabel.isHidden = false
+            sequencerModeIndicatorLabel.isHidden = false
         }
         else {
-            self.barIndicatorLabel.isHidden = true
+            barIndicatorLabel.isHidden = true
+            sequencerModeIndicatorLabel.isHidden = true
             syncMetronome()
-        }
-        
-        if (songChosen) {
-            self.loadSequencerData()
         }
         
     }
@@ -69,9 +71,9 @@ class MetronomeViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         if embededMode {
-            self.playButton.isHidden = true
-            self.setButton.isHidden = false
-            self.setButton.frame = playButton.frame
+            playButton.isHidden = true
+            setButton.isHidden = false
+            setButton.frame = playButton.frame
         }
         
     }
@@ -80,8 +82,12 @@ class MetronomeViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         // turn off the metronome
-        self.metronome.stop()
-        self.playButton.setTitle("Start", for: .normal)
+        metronome.stop()
+        playButton.setTitle("Start", for: .normal)
+        
+        if sequencerMode {
+            exitSequencerMode()
+        }
         
         do { try AKManager.stop() }
         catch {
@@ -120,15 +126,61 @@ class MetronomeViewController: UIViewController {
         metronome.tempo = metronomeData.tempo
     }
     
+    /* Logic used to calculate the correct tempo and time signature in a sequence
+       as well as the way to update UI
+     */
     func sequencerLogic() {
-        self.beatCount += 1
-        // do some checking, update tempo and time sig
+        beatCount += 1
+        notesCounter += 1
+        
+        // update bar number at the start of a bar
+        if notesCounter == notesInBar + 1 {
+            notesCounter = 1
+            currentBar += 1
+            DispatchQueue.main.async {
+                self.barIndicatorLabel.text = "Bar# " + String(self.currentBar)
+            }
+        }
+        
+        // update tempo and time sig at the start of a sequence
+        if beatCount == sequencerData[currentSequence].nextSequenceStartAtBeat {
+            
+            if sequencerData[currentSequence].isEndOfSong {
+                metronome.stop()
+                metronome.reset()
+                beatCount = 0
+                currentSequence = 0
+                
+                currentBar = 0
+                notesCounter = 0
+                // update UI
+                DispatchQueue.main.async {
+                    self.playButton.setTitle("Start", for: .normal)
+                }
+            }
+            else {
+                currentSequence += 1
+                let tempo = sequencerData[currentSequence].tempo
+                metronome.tempo = tempo
+                metronome.subdivision = sequencerData[currentSequence].beatValue
+                
+                notesInBar = metronome.subdivision
+                
+                //update UI
+                let ts = String(sequencerData[currentSequence].beatValue) + "/" + String(sequencerData[currentSequence].noteValue)
+                DispatchQueue.main.async {
+                    self.tempoTextField.text = String(Int(tempo))
+                    self.tempoStepper.value = tempo
+                    self.timeSignatureButton.setTitle(ts, for: .normal)
+                }
+            }
+        }
+        
     }
     
     func loadSequencerData() {
                 
         for i in 1...sequencerDictionay.count {
-
             let bar = Int(sequencerDictionay[String(i)]!["Bar"]!)!
             let repetition = Int(sequencerDictionay[String(i)]!["Repetition"]!)!
             let tempo = Double(sequencerDictionay[String(i)]!["Tempo"]!)!
@@ -140,15 +192,48 @@ class MetronomeViewController: UIViewController {
                 endOfSong = true
             }
             
-            self.sequencerData.append(
-                SequencerData(nextTempo: tempo,
-                             nextBeatValue: timeSignatureTop,
-                             nextNoteValue: timeSignatureBottom,
-                             nextSequenceStartAtBeat: bar + (timeSignatureTop * repetition),
-                             isEndOfSong: endOfSong))
+            if i == 1 {
+                let nextStart = bar + (timeSignatureTop * repetition)
+                self.sequencerData.append(
+                    SequencerData(startAtBeat: bar,
+                                  tempo: tempo,
+                                  beatValue: timeSignatureTop,
+                                  noteValue: timeSignatureBottom,
+                                  nextSequenceStartAtBeat: nextStart,
+                                  isEndOfSong: endOfSong)
+                )
+            }
+            else {
+                let start = self.sequencerData[i - 2].nextSequenceStartAtBeat
+                let nextStart = start + (timeSignatureTop * repetition)
+                
+                self.sequencerData.append(
+                    SequencerData(startAtBeat: start,
+                                  tempo: tempo,
+                                  beatValue: timeSignatureTop,
+                                  noteValue: timeSignatureBottom,
+                                  nextSequenceStartAtBeat: nextStart,
+                                  isEndOfSong: endOfSong)
+                )
+            }
         }
         
-        print(sequencerData)
+        //print(sequencerData)
+    }
+    
+    /* Clean data when exiting sequencer mode*/
+    func exitSequencerMode() {
+        sequencerData.removeAll()
+        sequencerDictionay.removeAll()
+        beatCount = 0
+        currentSequence = 0
+        sequencerMode = false
+        metronome.callback = {}
+        currentBar = 0
+        notesCounter = 0
+        notesInBar = 0
+        barIndicatorLabel.isHidden = true
+        sequencerModeIndicatorLabel.isHidden = true
     }
     
     
@@ -158,7 +243,32 @@ class MetronomeViewController: UIViewController {
     @IBAction func playButtonTapped(_ sender: Any) {
         
         if sequencerMode {
-            
+            if metronome.isPlaying {
+                metronome.stop()
+                playButton.setTitle("Start", for: .normal)
+            }
+            else {
+                if currentSequence == 0 {
+                    //metronome.callback = sequencerLogic
+                    metronome.tempo = self.sequencerData[0].tempo
+                    metronome.subdivision = self.sequencerData[0].beatValue
+                    
+                    notesInBar = metronome.subdivision
+                    notesCounter = 0
+                    currentBar = 1
+                    
+                    // update UI
+                    tempoTextField.text = String(Int(metronome.tempo))
+                    
+                    let ts = String(self.sequencerData[0].beatValue) + "/" + String(self.sequencerData[0].noteValue)
+                    timeSignatureButton.setTitle(ts, for: .normal)
+                    playButton.setTitle("Stop", for: .normal)
+                    metronome.restart()
+                }
+                else {
+                    metronome.start()
+                }
+            }
         }
         else {
             if metronome.isPlaying {
@@ -180,6 +290,10 @@ class MetronomeViewController: UIViewController {
     }
     
     @IBAction func tempoStepperChanged(_ sender: Any) {
+        
+        if sequencerMode{
+            exitSequencerMode()
+        }
         
         tempoTextField.text = String(Int(tempoStepper.value))
         if metronome.isPlaying {
@@ -222,8 +336,11 @@ class MetronomeViewController: UIViewController {
             
             let controller = segue.destination as! TimeSignatureViewController
             controller.configureMetronomeData(data: MetronomeData(tempo: tempo, beatValue: beatVal, noteValue: noteVal))
+            
+            if sequencerMode {
+                exitSequencerMode()
+            }
         }
-        
 
     }
 

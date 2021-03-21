@@ -42,11 +42,13 @@ extension UIViewController {
     }
     
     struct SequencerData {
-        var nextTempo: Double
-        var nextBeatValue: Int
-        var nextNoteValue: Int
+        var startAtBeat: Int
+        var tempo: Double
+        var beatValue: Int
+        var noteValue: Int
         var nextSequenceStartAtBeat: Int // The position to play next pattern
         var isEndOfSong: Bool = false // set to true for the last sequence 
     }
+
     
 }

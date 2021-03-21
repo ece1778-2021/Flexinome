@@ -64,12 +64,14 @@ class SongListViewController: UIViewController, UITableViewDelegate, UITableView
         do {
             let jsonData = try Data(contentsOf: URLs[indexPath.row])
             let json = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as! Dictionary<String, Dictionary<String,String>>
-            let vc = self.storyboard?.instantiateViewController(identifier: "MetronomeViewController") as! MetronomeViewController
-            vc.modalPresentationStyle = .fullScreen
-            vc.embededMode = true
-            vc.songChosen = true
+            
+            let pvc = self.parent as! UINavigationController
+            let count = pvc.viewControllers.count
+            let vc = pvc.viewControllers[count - 2] as! MetronomeViewController
+            
+            vc.sequencerMode = true
             vc.sequencerDictionay = json
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.navigationController?.popViewController(animated: true)
        }
        catch {
            print(error)

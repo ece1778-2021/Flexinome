@@ -393,6 +393,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sequencer Mode" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="rRI-VW-ql9">
+                                <rect key="frame" x="420" y="156" width="184.5" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Kgc-ft-DyS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -403,6 +409,7 @@
                             <constraint firstItem="Daa-3J-8P0" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="5Kn-eF-KH8"/>
                             <constraint firstItem="lPM-sM-xZ1" firstAttribute="top" secondItem="Kgc-ft-DyS" secondAttribute="top" constant="211" id="6RK-dM-A4k"/>
                             <constraint firstItem="5r1-pR-6jF" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="8Kd-KM-Hlh"/>
+                            <constraint firstItem="5r1-pR-6jF" firstAttribute="top" secondItem="rRI-VW-ql9" secondAttribute="bottom" constant="60" id="8OS-76-04Y"/>
                             <constraint firstItem="FrF-X3-RIN" firstAttribute="top" secondItem="Daa-3J-8P0" secondAttribute="bottom" constant="20" id="8WG-vg-zdY"/>
                             <constraint firstItem="FrF-X3-RIN" firstAttribute="width" secondItem="6Yw-gO-MQ4" secondAttribute="width" multiplier="0.4" id="DBh-g2-GWs"/>
                             <constraint firstItem="Daa-3J-8P0" firstAttribute="top" secondItem="Zvh-Xi-ltC" secondAttribute="bottom" constant="20" id="G3T-dL-haW"/>
@@ -416,6 +423,7 @@
                             <constraint firstItem="lPM-sM-xZ1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5r1-pR-6jF" secondAttribute="trailing" constant="8" symbolic="YES" id="cLH-Ze-5wR"/>
                             <constraint firstItem="Daa-3J-8P0" firstAttribute="width" secondItem="Kgc-ft-DyS" secondAttribute="width" multiplier="0.4" id="dGa-nX-nfH"/>
                             <constraint firstItem="Kgc-ft-DyS" firstAttribute="bottom" secondItem="Daa-3J-8P0" secondAttribute="bottom" constant="260" id="tz5-7t-v8w"/>
+                            <constraint firstItem="rRI-VW-ql9" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="uUM-bi-gsW"/>
                             <constraint firstItem="wSf-X2-Fbz" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="wda-qi-tM1"/>
                             <constraint firstItem="wSf-X2-Fbz" firstAttribute="top" secondItem="5r1-pR-6jF" secondAttribute="bottom" constant="10" id="zVn-Bn-yr6"/>
                         </constraints>
@@ -424,6 +432,7 @@
                     <connections>
                         <outlet property="barIndicatorLabel" destination="qvq-Qk-wSS" id="OIS-g3-tzJ"/>
                         <outlet property="playButton" destination="Daa-3J-8P0" id="r1w-Kq-UAP"/>
+                        <outlet property="sequencerModeIndicatorLabel" destination="rRI-VW-ql9" id="jAE-LO-S7d"/>
                         <outlet property="setButton" destination="Zvh-Xi-ltC" id="tCj-Cn-Nqf"/>
                         <outlet property="tempoStepper" destination="wSf-X2-Fbz" id="ISF-Xk-scz"/>
                         <outlet property="tempoTextField" destination="5r1-pR-6jF" id="95H-Ol-s1Z"/>
@@ -579,6 +588,9 @@
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemTealColor">
             <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
