@@ -134,7 +134,7 @@ class MetronomeViewController: UIViewController {
         notesCounter += 1
         
         // update bar number at the start of a bar
-        if notesCounter == notesInBar + 1 {
+        if notesCounter - 1 == notesInBar {
             notesCounter = 1
             currentBar += 1
             DispatchQueue.main.async {
@@ -259,6 +259,7 @@ class MetronomeViewController: UIViewController {
                     
                     // update UI
                     tempoTextField.text = String(Int(metronome.tempo))
+                    barIndicatorLabel.text = "Bar# " + String(currentBar)
                     
                     let ts = String(self.sequencerData[0].beatValue) + "/" + String(self.sequencerData[0].noteValue)
                     timeSignatureButton.setTitle(ts, for: .normal)

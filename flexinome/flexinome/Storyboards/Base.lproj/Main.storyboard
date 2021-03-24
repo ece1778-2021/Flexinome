@@ -387,8 +387,8 @@
                                     <action selector="setButtonTapped:" destination="Lyk-Gh-Vn9" eventType="touchUpInside" id="PtC-g9-QvY"/>
                                 </connections>
                             </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bar#     1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="qvq-Qk-wSS" userLabel="Bar Indicator Label">
-                                <rect key="frame" x="466.5" y="509" width="91" height="30"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bar# 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="qvq-Qk-wSS" userLabel="Bar Indicator Label">
+                                <rect key="frame" x="477.5" y="509" width="69" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
