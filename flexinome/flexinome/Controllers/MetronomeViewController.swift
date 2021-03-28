@@ -26,12 +26,9 @@ class MetronomeViewController: UIViewController {
     /* data for sequencer */
     public var sequencerDictionay: [String: Dictionary<String,String>] = [:]
     public var sequencerMode = false // play a preconfigured pattern (song)
-    private var beatCount = 0
+    
     private var sequencerData = [SequencerData]()
-    private var currentSequence = 0 // the sequence currently playing
-    private var currentBar = 0 // the bar currently playing
-    private var notesInBar = 0 // the number of notes in a bar
-    private var notesCounter = 0 // the number of notes played, used to update bar status
+    private var sequencerTracking = SequencerTracking()
     
     // metronome data used to sync between VCs
     private var metronomeData = MetronomeData(tempo: 120, beatValue: 4, noteValue: 4)
@@ -126,48 +123,49 @@ class MetronomeViewController: UIViewController {
         metronome.tempo = metronomeData.tempo
     }
     
-    /* Logic used to calculate the correct tempo and time signature in a sequence
-       as well as the way to update UI
-     */
+    /* Callback logic used to display beat visuals */
+    func beatVisualCallback() {
+        
+    }
+    
+    
+    /* Callback logic used to calculate the correct tempo and time signature in a sequence
+       as well as the way to update UI */
     func sequencerLogic() {
-        beatCount += 1
-        notesCounter += 1
+        sequencerTracking.beatCount += 1
+        sequencerTracking.notesCounter += 1
         
         // update bar number at the start of a bar
-        if notesCounter - 1 == notesInBar {
-            notesCounter = 1
-            currentBar += 1
+        if sequencerTracking.notesCounter - 1 == sequencerTracking.notesInBar {
+            sequencerTracking.notesCounter = 1
+            sequencerTracking.currentBar += 1
             DispatchQueue.main.async {
-                self.barIndicatorLabel.text = "Bar# " + String(self.currentBar)
+                self.barIndicatorLabel.text = "Bar# " + String(self.sequencerTracking.currentBar)
             }
         }
         
         // update tempo and time sig at the start of a sequence
-        if beatCount == sequencerData[currentSequence].nextSequenceStartAtBeat {
+        if sequencerTracking.beatCount == sequencerData[sequencerTracking.currentSequence].nextSequenceStartAtBeat {
             
-            if sequencerData[currentSequence].isEndOfSong {
+            if sequencerData[sequencerTracking.currentSequence].isEndOfSong {
                 metronome.stop()
                 metronome.reset()
-                beatCount = 0
-                currentSequence = 0
-                
-                currentBar = 0
-                notesCounter = 0
+                sequencerTracking.cleanAll()
                 // update UI
                 DispatchQueue.main.async {
                     self.playButton.setTitle("Start", for: .normal)
                 }
             }
             else {
-                currentSequence += 1
-                let tempo = sequencerData[currentSequence].tempo
+                sequencerTracking.currentSequence += 1
+                let tempo = sequencerData[sequencerTracking.currentSequence].tempo
                 metronome.tempo = tempo
-                metronome.subdivision = sequencerData[currentSequence].beatValue
+                metronome.subdivision = sequencerData[sequencerTracking.currentSequence].beatValue
                 
-                notesInBar = metronome.subdivision
+                sequencerTracking.notesInBar = metronome.subdivision
                 
                 //update UI
-                let ts = String(sequencerData[currentSequence].beatValue) + "/" + String(sequencerData[currentSequence].noteValue)
+                let ts = String(sequencerData[sequencerTracking.currentSequence].beatValue) + "/" + String(sequencerData[sequencerTracking.currentSequence].noteValue)
                 DispatchQueue.main.async {
                     self.tempoTextField.text = String(Int(tempo))
                     self.tempoStepper.value = tempo
@@ -175,7 +173,6 @@ class MetronomeViewController: UIViewController {
                 }
             }
         }
-        
     }
     
     func loadSequencerData() {
@@ -217,21 +214,15 @@ class MetronomeViewController: UIViewController {
                 )
             }
         }
-        
-        //print(sequencerData)
     }
     
     /* Clean data when exiting sequencer mode*/
     func exitSequencerMode() {
         sequencerData.removeAll()
         sequencerDictionay.removeAll()
-        beatCount = 0
-        currentSequence = 0
         sequencerMode = false
         metronome.callback = {}
-        currentBar = 0
-        notesCounter = 0
-        notesInBar = 0
+        sequencerTracking.cleanAll()
         barIndicatorLabel.isHidden = true
         sequencerModeIndicatorLabel.isHidden = true
     }
@@ -248,20 +239,20 @@ class MetronomeViewController: UIViewController {
                 playButton.setTitle("Start", for: .normal)
             }
             else {
-                if currentSequence == 0 {
-                    //metronome.callback = sequencerLogic
-                    metronome.tempo = self.sequencerData[0].tempo
-                    metronome.subdivision = self.sequencerData[0].beatValue
+                if sequencerTracking.currentSequence == 0 {
+                    // initialize metronome with sequencer data
+                    metronome.tempo = sequencerData[0].tempo
+                    metronome.subdivision = sequencerData[0].beatValue
                     
-                    notesInBar = metronome.subdivision
-                    notesCounter = 0
-                    currentBar = 1
+                    sequencerTracking.notesInBar = metronome.subdivision
+                    sequencerTracking.notesCounter = 0
+                    sequencerTracking.currentBar = 1
                     
                     // update UI
                     tempoTextField.text = String(Int(metronome.tempo))
-                    barIndicatorLabel.text = "Bar# " + String(currentBar)
+                    barIndicatorLabel.text = "Bar# " + String(sequencerTracking.currentBar)
                     
-                    let ts = String(self.sequencerData[0].beatValue) + "/" + String(self.sequencerData[0].noteValue)
+                    let ts = String(sequencerData[0].beatValue) + "/" + String(sequencerData[0].noteValue)
                     timeSignatureButton.setTitle(ts, for: .normal)
                     playButton.setTitle("Stop", for: .normal)
                     metronome.restart()
@@ -281,8 +272,19 @@ class MetronomeViewController: UIViewController {
                 sanitizeTempoTextField()
                 metronome.reset()
                 metronome.tempo = Double(tempoTextField.text!)!
-                let beatsPerMeasure = String(Array((timeSignatureButton.titleLabel?.text)!)[0])
-                metronome.subdivision = Int(beatsPerMeasure)!
+                let tsLen = timeSignatureButton.titleLabel?.text?.count
+                if tsLen == 3 {
+                    // single digit beat
+                    let beatsPerMeasure = String(Array((timeSignatureButton.titleLabel?.text)!)[0])
+                    metronome.subdivision = Int(beatsPerMeasure)!
+                }
+                else if tsLen == 4 {
+                    // double digits beat
+                    let beatsPerMeasure = String(Array((timeSignatureButton.titleLabel?.text)!)[0]) +
+                        String(Array((timeSignatureButton.titleLabel?.text)!)[1])
+                    metronome.subdivision = Int(beatsPerMeasure)!
+                }
+                
                 metronome.restart()
                 playButton.setTitle("Stop", for: .normal)
             }
@@ -308,10 +310,29 @@ class MetronomeViewController: UIViewController {
         let count = pvc.viewControllers.count
         let pdfVC = pvc.viewControllers[count - 2] as! PDFViewController
 
-        let beatVal = Int(String(Array((timeSignatureButton.titleLabel?.text)!)[0]))!
-        let noteVal = Int(String(Array((timeSignatureButton.titleLabel?.text)!)[2]))!
+        
+        if sequencerMode {
+            pdfVC.configureSequencerData(data: sequencerData)
+        }
+        else {
+            let tsLen = timeSignatureButton.titleLabel?.text?.count
+            var beatsPerMeasure: String = "4"
+            if tsLen == 3 {
+                // single digit beat
+                beatsPerMeasure = String(Array((timeSignatureButton.titleLabel?.text)!)[0])
+                
+            }
+            else if tsLen == 4 {
+                // double digits beat
+                beatsPerMeasure = String(Array((timeSignatureButton.titleLabel?.text)!)[0]) +
+                    String(Array((timeSignatureButton.titleLabel?.text)!)[1])
+            }
+            let beatVal = Int(beatsPerMeasure)!
+            let noteVal = Int(String(Array((timeSignatureButton.titleLabel?.text)!)[2]))!
 
-        pdfVC.configureMetronomeData(data: MetronomeData(tempo: Double(tempoTextField.text!)!, beatValue: beatVal, noteValue: noteVal))
+            pdfVC.configureMetronomeData(data: MetronomeData(tempo: Double(tempoTextField.text!)!, beatValue: beatVal, noteValue: noteVal))
+        }
+        
         
         self.navigationController?.popViewController(animated: true)
     }
@@ -331,7 +352,20 @@ class MetronomeViewController: UIViewController {
         
         if segue.identifier == "timeSignatureSegue" {
             
-            let beatVal = Int(String(Array((timeSignatureButton.titleLabel?.text)!)[0]))!
+            let tsLen = timeSignatureButton.titleLabel?.text?.count
+            var beatsPerMeasure: String = "4"
+            if tsLen == 3 {
+                // single digit beat
+                beatsPerMeasure = String(Array((timeSignatureButton.titleLabel?.text)!)[0])
+                
+            }
+            else if tsLen == 4 {
+                // double digits beat
+                beatsPerMeasure = String(Array((timeSignatureButton.titleLabel?.text)!)[0]) +
+                    String(Array((timeSignatureButton.titleLabel?.text)!)[1])
+            }
+            
+            let beatVal = Int(beatsPerMeasure)!
             let noteVal = Int(String(Array((timeSignatureButton.titleLabel?.text)!)[2]))!
             let tempo = Double(tempoTextField.text!)!
             

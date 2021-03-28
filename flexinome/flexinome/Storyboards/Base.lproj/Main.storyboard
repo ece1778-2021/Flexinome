@@ -463,13 +463,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" autorepeat="NO" value="1" minimumValue="1" maximumValue="32" translatesAutoresizingMaskIntoConstraints="NO" id="1jG-f1-SMj">
+                            <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" autorepeat="NO" value="1" minimumValue="1" maximumValue="12" translatesAutoresizingMaskIntoConstraints="NO" id="1jG-f1-SMj">
                                 <rect key="frame" x="226" y="438" width="94" height="32"/>
                                 <connections>
                                     <action selector="beatStepperChanged:" destination="GyC-KO-ZqX" eventType="valueChanged" id="HD2-on-rGe"/>
                                 </connections>
                             </stepper>
-                            <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" autorepeat="NO" value="4" minimumValue="4" maximumValue="32" stepValue="4" translatesAutoresizingMaskIntoConstraints="NO" id="vr4-ad-EdD">
+                            <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" autorepeat="NO" value="4" minimumValue="4" maximumValue="8" stepValue="4" translatesAutoresizingMaskIntoConstraints="NO" id="vr4-ad-EdD">
                                 <rect key="frame" x="384" y="438" width="94" height="32"/>
                                 <connections>
                                     <action selector="noteStepperChanged:" destination="GyC-KO-ZqX" eventType="valueChanged" id="jag-jR-GWg"/>

@@ -16,8 +16,15 @@ class PDFViewController: UIViewController {
     var pdfView = PDFView()
     var pdfURL: URL!
     
+    // metronome embed in the pdf reader
+    private let metronome = AKMetronome()
+    
     // metronome data used to sync between VCs
     private var metronomeData = MetronomeData(tempo: 120, beatValue: 4, noteValue: 4)
+    
+    private var sequencerMode = false
+    private var sequencerData = [SequencerData]()
+    private var sequencerTracking = SequencerTracking()
     
     private let playButton: UIButton = {
         let button = UIButton()
@@ -29,12 +36,8 @@ class PDFViewController: UIViewController {
     private let metronomeButton: UIButton = {
         let button = UIButton()
         button.clipsToBounds = true
-        button.setBackgroundImage(UIImage(named: "metronome_color"), for: .normal)
         return button
     }()
-    
-    // metronome embed in the pdf reader
-    private let metronome = AKMetronome()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,14 +93,28 @@ class PDFViewController: UIViewController {
             return
         }
         
+        if sequencerMode {
+            metronomeButton.setBackgroundImage(UIImage(named: "song"), for: .normal)
+        }
+        else {
+            metronomeButton.setBackgroundImage(UIImage(named: "metronome_color"), for: .normal)
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         turnOffMetronomeCompletely()
+        exitSequencerMode()
     }
     
+// MARK: - Metronome
+    
+    public func configureMetronomeData(data:MetronomeData) {
+        metronomeData = data
+        sequencerMode = false
+    }
     
     // open metronome page in a modal view
     @IBAction func metronomeButtonTapped() {
@@ -113,20 +130,43 @@ class PDFViewController: UIViewController {
     
     @IBAction func playButtonTapped() {
         
-        if metronome.isPlaying {
-            metronome.stop()
-            playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+        if sequencerMode {
+            if metronome.isPlaying {
+                metronome.stop()
+                playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+            }
+            else {
+                if sequencerTracking.currentSequence == 0 {
+                    // initialize metronome with sequencer data
+                    metronome.callback = sequencerLogic
+                    metronome.tempo = sequencerData[0].tempo
+                    metronome.subdivision = sequencerData[0].beatValue
+                    
+                    sequencerTracking.notesInBar = metronome.subdivision
+                    sequencerTracking.notesCounter = 0
+                    sequencerTracking.currentBar = 1
+                    
+                    playButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: .normal)
+                    metronome.restart()
+                }
+                else {
+                    metronome.start()
+                }
+            }
         }
         else {
-            metronome.tempo = metronomeData.tempo
-            metronome.subdivision = metronomeData.beatValue
-            metronome.start()
-            playButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: .normal)
+            if metronome.isPlaying {
+                metronome.stop()
+                playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+            }
+            else {
+                metronome.tempo = metronomeData.tempo
+                metronome.subdivision = metronomeData.beatValue
+                metronome.start()
+                playButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: .normal)
+            }
         }
-    }
-    
-    public func configureMetronomeData(data:MetronomeData) {
-        self.metronomeData = data
+        
     }
     
     func turnOffMetronomeCompletely() {
@@ -138,7 +178,56 @@ class PDFViewController: UIViewController {
             return
         }
     }
-                    
+   
+    // MARK: - Sequencer
+    
+    public func configureSequencerData(data:[SequencerData]) {
+        sequencerData = data
+        sequencerMode = true
+    }
+    
+    /* Callback logic used to calculate the correct tempo and time signature in a sequence */
+    func sequencerLogic() {
+        sequencerTracking.beatCount += 1
+        sequencerTracking.notesCounter += 1
+        
+        // update bar number at the start of a bar
+        if sequencerTracking.notesCounter - 1 == sequencerTracking.notesInBar {
+            sequencerTracking.notesCounter = 1
+            sequencerTracking.currentBar += 1
+
+        }
+        
+        // update tempo and time sig at the start of a sequence
+        if sequencerTracking.beatCount == sequencerData[sequencerTracking.currentSequence].nextSequenceStartAtBeat {
+            
+            if sequencerData[sequencerTracking.currentSequence].isEndOfSong {
+                metronome.stop()
+                metronome.reset()
+                sequencerTracking.cleanAll()
+                
+                DispatchQueue.main.async {
+                    self.playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+                }
+            }
+            else {
+                sequencerTracking.currentSequence += 1
+                let tempo = sequencerData[sequencerTracking.currentSequence].tempo
+                metronome.tempo = tempo
+                metronome.subdivision = sequencerData[sequencerTracking.currentSequence].beatValue
+                sequencerTracking.notesInBar = metronome.subdivision
+            }
+        }
+    }
+    
+    
+    /* Clean data when exiting sequencer mode*/
+    func exitSequencerMode() {
+        sequencerData.removeAll()
+        sequencerMode = false
+        metronome.callback = {}
+        sequencerTracking.cleanAll()
+    }
 
     /*
     // MARK: - Navigation

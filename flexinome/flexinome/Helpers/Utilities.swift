@@ -50,5 +50,20 @@ extension UIViewController {
         var isEndOfSong: Bool = false // set to true for the last sequence 
     }
 
+    struct SequencerTracking {
+        var beatCount = 0       // the beats played since start of the sequencer
+        var currentSequence = 0 // the sequence # currently playing
+        var currentBar = 0      // the bar # currently playing
+        var notesInBar = 0      // the number of notes in a bar
+        var notesCounter = 0    // the number of notes played, used to update bar status
+        
+        mutating func cleanAll() {
+            self.beatCount = 0
+            self.currentSequence = 0
+            self.currentBar = 0
+            self.notesInBar = 0
+            self.notesCounter = 0
+        }
+    }
     
 }
