@@ -26,6 +26,7 @@ class SequencerViewController: UIViewController, SpreadsheetViewDataSource, Spre
         spreadsheetView.register(InputCell.self, forCellWithReuseIdentifier: InputCell.identifier)
         spreadsheetView.register(LabelCell.self, forCellWithReuseIdentifier: LabelCell.identifier)
         spreadsheetView.register(TimeSignatureCell.self, forCellWithReuseIdentifier: TimeSignatureCell.identifier)
+        spreadsheetView.register(TurnCell.self, forCellWithReuseIdentifier: TurnCell.identifier)
         view.addSubview(spreadsheetView)
     }
     
@@ -47,6 +48,11 @@ class SequencerViewController: UIViewController, SpreadsheetViewDataSource, Spre
                 cell.setup()
                 return cell
             }
+            else if (indexPath.column == 4) {
+                let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: TurnCell.identifier, for: indexPath) as! TurnCell
+                cell.setup()
+                return cell
+            }
             else {
                 let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: InputCell.identifier, for: indexPath) as! InputCell
                 cell.setup()
@@ -61,7 +67,7 @@ class SequencerViewController: UIViewController, SpreadsheetViewDataSource, Spre
     }
     
     func numberOfRows(in spreadsheetView: SpreadsheetView) -> Int {
-        return 11
+        return 1001
     }
     
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, widthForColumn column: Int) -> CGFloat {
@@ -80,6 +86,10 @@ class SequencerViewController: UIViewController, SpreadsheetViewDataSource, Spre
             for col in 0...4 {
                 if (col == 3) {
                     let cell = spreadsheetView.cellForItem(at: NSIndexPath(row: row, section: col) as IndexPath) as! TimeSignatureCell
+                    dict[headers[col]] = cell.textField.text!
+                }
+                else if (col == 4) {
+                    let cell = spreadsheetView.cellForItem(at: NSIndexPath(row: row, section: col) as IndexPath) as! TurnCell
                     dict[headers[col]] = cell.textField.text!
                 }
                 else {
@@ -261,6 +271,45 @@ class TimeSignatureCell: Cell, UIPickerViewDelegate, UIPickerViewDataSource {
 
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         textField.text = timeSignatures[row]
+    }
+}
+
+class TurnCell: Cell, UIPickerViewDelegate, UIPickerViewDataSource {
+
+    static let identifier = "TurnCell"
+
+    public let textField = UITextField()
+    let options = ["", "no", "yes"]
+
+    public func setup() {
+        let picker = UIPickerView()
+        picker.delegate = self
+        textField.inputView = picker
+        textField.textAlignment = .center
+        textField.font = UIFont.init(name: (textField.font?.fontName)!, size: 24.0)
+        textField.textColor = .black
+        contentView.addSubview(textField)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        textField.frame = contentView.bounds
+    }
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView( _ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return options.count
+    }
+
+    func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+     return options[row]
+    }
+
+    func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        textField.text = options[row]
     }
 }
 

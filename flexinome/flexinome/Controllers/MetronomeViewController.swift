@@ -183,6 +183,7 @@ class MetronomeViewController: UIViewController {
             let tempo = Double(sequencerDictionay[String(i)]!["Tempo"]!)!
             let timeSignatureTop = Int(sequencerDictionay[String(i)]!["Time Signature"]!.prefix(1))!
             let timeSignatureBottom = Int(sequencerDictionay[String(i)]!["Time Signature"]!.suffix(1))!
+            let turn = sequencerDictionay[String(i)]!["Turn"]!
             var endOfSong = false
             
             if (i == sequencerDictionay.count) {
