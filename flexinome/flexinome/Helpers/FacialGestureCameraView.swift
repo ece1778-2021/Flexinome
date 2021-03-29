@@ -34,13 +34,13 @@ public class FacialGestureCameraView: UIView {
     
     public weak var delegate: FacialGestureCameraViewDelegate?
     
-    public var leftNodThreshold: CGFloat = 20.0
+    public var leftNodThreshold: CGFloat = 40.0
     
-    public var rightNodThreshold: CGFloat = -20.0
+    public var rightNodThreshold: CGFloat = -40.0
     
-    public var smileProbality: CGFloat = 0.8
+    public var smileProbality: CGFloat = 0.95
     
-    public var openEyeMaxProbability: CGFloat = 0.95
+    public var openEyeMaxProbability: CGFloat = 0.9
     
     public var openEyeMinProbability: CGFloat = 0.1
     

@@ -203,6 +203,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="c36-Jz-MUn"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                     </view>
                     <navigationItem key="navigationItem" id="15l-Cd-Sue"/>
                     <connections>

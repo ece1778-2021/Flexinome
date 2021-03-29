@@ -9,12 +9,15 @@ import UIKit
 import PDFKit
 import AudioKit
 
-class PDFViewController: UIViewController {
+class PDFViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var cameraView: FacialGestureCameraView!
     
     var pdfView = PDFView()
     var pdfURL: URL!
+    
+    private var blinkTimerStarted = false
+    private var blinkCount = 0
     
     // metronome embed in the pdf reader
     private let metronome = AKMetronome()
@@ -62,6 +65,14 @@ class PDFViewController: UIViewController {
         //initialize metronome value
         metronome.tempo = 120
         metronome.subdivision = 4
+        
+        let directions: [UISwipeGestureRecognizer.Direction] = [.right, .left]
+        for direction in directions {
+            let gesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
+            gesture.direction = direction
+            gesture.delegate = self
+            self.pdfView.addGestureRecognizer(gesture)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -108,6 +119,23 @@ class PDFViewController: UIViewController {
         turnOffMetronomeCompletely()
         exitSequencerMode()
     }
+    
+    @objc func handleSwipe(sender: UISwipeGestureRecognizer) {
+        if (sender.direction == UISwipeGestureRecognizer.Direction.left) {
+            pdfView.goToNextPage(self)
+        }
+        if (sender.direction == UISwipeGestureRecognizer.Direction.right) {
+            pdfView.goToPreviousPage(self)
+        }
+      }
+
+       func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+           return true
+       }
+
+      func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+          return true
+      }
     
 // MARK: - Metronome
     
@@ -261,7 +289,28 @@ extension PDFViewController {
 extension PDFViewController: FacialGestureCameraViewDelegate {
    
     func doubleEyeBlinkDetected() {
-//        print("Double Eye Blink Detected")
+        if (self.blinkTimerStarted == false) {
+            self.blinkTimerStarted = true
+            var seconds = 0
+            self.blinkCount = 1
+            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+//                print("Timer fired!")
+                seconds += 1
+
+                if seconds == 2 {
+                    if (self.blinkCount >= 3) {
+                        print("Double Eye Blink Detected")
+                        print(self.blinkCount)
+                    }
+                    self.blinkTimerStarted = false
+                    self.blinkCount = 0
+                    timer.invalidate()
+                }
+            }
+        }
+        else {
+            self.blinkCount += 1
+        }
     }
 
     func smileDetected() {
@@ -270,12 +319,12 @@ extension PDFViewController: FacialGestureCameraViewDelegate {
 
     func nodLeftDetected() {
         print("Nod Left Detected")
-        pdfView.goToPreviousPage(nil)
+        pdfView.goToPreviousPage(self)
     }
 
     func nodRightDetected() {
         print("Nod Right Detected")
-        pdfView.goToNextPage(nil)
+        pdfView.goToNextPage(self)
     }
 
     func leftEyeBlinkDetected() {
