@@ -190,6 +190,11 @@ class MetronomeViewController: UIViewController {
                 endOfSong = true
             }
             
+            var turnDecision = false
+            if turn.isNotEmpty {
+                turnDecision = (turn == "yes") ? true : false
+            }
+            
             if i == 1 {
                 let nextStart = bar + (timeSignatureTop * repetition)
                 self.sequencerData.append(
@@ -197,6 +202,7 @@ class MetronomeViewController: UIViewController {
                                   tempo: tempo,
                                   beatValue: timeSignatureTop,
                                   noteValue: timeSignatureBottom,
+                                  turnPage: turnDecision,
                                   nextSequenceStartAtBeat: nextStart,
                                   isEndOfSong: endOfSong)
                 )
@@ -210,6 +216,7 @@ class MetronomeViewController: UIViewController {
                                   tempo: tempo,
                                   beatValue: timeSignatureTop,
                                   noteValue: timeSignatureBottom,
+                                  turnPage: turnDecision,
                                   nextSequenceStartAtBeat: nextStart,
                                   isEndOfSong: endOfSong)
                 )

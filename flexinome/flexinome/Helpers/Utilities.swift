@@ -46,6 +46,7 @@ extension UIViewController {
         var tempo: Double
         var beatValue: Int
         var noteValue: Int
+        var turnPage: Bool = false
         var nextSequenceStartAtBeat: Int // The position to play next pattern
         var isEndOfSong: Bool = false // set to true for the last sequence 
     }

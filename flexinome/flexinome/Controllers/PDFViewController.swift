@@ -9,7 +9,7 @@ import UIKit
 import PDFKit
 import AudioKit
 
-class PDFViewController: UIViewController, UIGestureRecognizerDelegate {
+class PDFViewController: UIViewController {
     
     @IBOutlet weak var cameraView: FacialGestureCameraView!
     
@@ -54,25 +54,13 @@ class PDFViewController: UIViewController, UIGestureRecognizerDelegate {
         
         if let document = PDFDocument(url: pdfURL) {
             pdfView.displayMode = .singlePage
-//            pdfView.autoScales = true
             pdfView.displayDirection = .horizontal
-//            pdfView.usePageViewController(true, withViewOptions: nil)
             pdfView.document = document
         }
-        
-        //self.hideNavigationBarWhenTappedAround()
         
         //initialize metronome value
         metronome.tempo = 120
         metronome.subdivision = 4
-        
-        let directions: [UISwipeGestureRecognizer.Direction] = [.right, .left]
-        for direction in directions {
-            let gesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(sender:)))
-            gesture.direction = direction
-            gesture.delegate = self
-            self.pdfView.addGestureRecognizer(gesture)
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -88,7 +76,8 @@ class PDFViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     override func viewDidLayoutSubviews() {
-        pdfView.frame = view.frame
+        let navBarFrame = self.navigationController?.navigationBar.frame
+        pdfView.frame = CGRect(x: 0, y: navBarFrame!.maxY, width: view.bounds.width, height: view.bounds.height - navBarFrame!.height)
         playButton.frame = CGRect(x: view.frame.maxX-50 , y: view.frame.maxY*0.8, width: 30, height: 30)
         metronomeButton.frame = CGRect(x: view.frame.maxX-60 , y: playButton.frame.maxY + 10, width: 50, height: 50)
     }
@@ -120,23 +109,6 @@ class PDFViewController: UIViewController, UIGestureRecognizerDelegate {
         exitSequencerMode()
     }
     
-    @objc func handleSwipe(sender: UISwipeGestureRecognizer) {
-        if (sender.direction == UISwipeGestureRecognizer.Direction.left) {
-            pdfView.goToNextPage(self)
-        }
-        if (sender.direction == UISwipeGestureRecognizer.Direction.right) {
-            pdfView.goToPreviousPage(self)
-        }
-      }
-
-       func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-           return true
-       }
-
-      func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-          return true
-      }
-    
 // MARK: - Metronome
     
     public func configureMetronomeData(data:MetronomeData) {
@@ -152,7 +124,7 @@ class PDFViewController: UIViewController, UIGestureRecognizerDelegate {
         let vc = self.storyboard?.instantiateViewController(identifier: "MetronomeViewController") as! MetronomeViewController
         vc.modalPresentationStyle = .fullScreen
         vc.embededMode = true
-        vc.configureMetronomeData(data: self.metronomeData)
+        vc.configureMetronomeData(data: metronomeData)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -239,11 +211,21 @@ class PDFViewController: UIViewController, UIGestureRecognizerDelegate {
                 }
             }
             else {
+                // turn page decision made at the end of the sequence
+                let turn = sequencerData[sequencerTracking.currentSequence].turnPage
+                
                 sequencerTracking.currentSequence += 1
                 let tempo = sequencerData[sequencerTracking.currentSequence].tempo
                 metronome.tempo = tempo
                 metronome.subdivision = sequencerData[sequencerTracking.currentSequence].beatValue
                 sequencerTracking.notesInBar = metronome.subdivision
+                
+                if turn {
+                    DispatchQueue.main.async {
+                        self.pdfView.go(to: self.pdfView.visiblePages[0])
+                        self.pdfView.goToNextPage(self)
+                    }
+                }
             }
         }
     }
@@ -319,11 +301,13 @@ extension PDFViewController: FacialGestureCameraViewDelegate {
 
     func nodLeftDetected() {
         print("Nod Left Detected")
+        pdfView.go(to: pdfView.visiblePages[0]) // sync page history with visible page
         pdfView.goToPreviousPage(self)
     }
 
     func nodRightDetected() {
         print("Nod Right Detected")
+        pdfView.go(to: pdfView.visiblePages[0])
         pdfView.goToNextPage(self)
     }
 
