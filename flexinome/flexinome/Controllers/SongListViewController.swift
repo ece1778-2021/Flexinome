@@ -42,7 +42,7 @@ class SongListViewController: UIViewController, UITableViewDelegate, UITableView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! SequencerViewController
         if (self.editMode) {
-            destinationVC.sequencerDict = self.sequencerDict
+            SequencerViewController.GlobalVariable.sequencerDict = self.sequencerDict
             destinationVC.song = self.song
             destinationVC.editMode = true
         }
