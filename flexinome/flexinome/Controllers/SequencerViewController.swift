@@ -11,11 +11,13 @@ import KBNumberPad
 
 class SequencerViewController: UIViewController, SpreadsheetViewDataSource, SpreadsheetViewDelegate {
     
-    @IBOutlet weak var songTitle: UITextField!
+    @IBOutlet var songTitle: UITextField!
     
     private let spreadsheetView = SpreadsheetView()
     let headers = ["Bar", "Repetition", "Tempo", "Time Signature", "Turn"]
     var sequencerDict: [String: Dictionary<String,String>] = [:]
+    var song = ""
+    var editMode = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,11 @@ class SequencerViewController: UIViewController, SpreadsheetViewDataSource, Spre
         spreadsheetView.register(TimeSignatureCell.self, forCellWithReuseIdentifier: TimeSignatureCell.identifier)
         spreadsheetView.register(TurnCell.self, forCellWithReuseIdentifier: TurnCell.identifier)
         view.addSubview(spreadsheetView)
+        
+        if (editMode) {
+            self.songTitle.text = self.song
+            self.songTitle.isUserInteractionEnabled = false
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -42,20 +49,37 @@ class SequencerViewController: UIViewController, SpreadsheetViewDataSource, Spre
             cell.label.textColor = .white
             cell.label.text = self.headers[indexPath.column]
         }
-        else {
+        else if (indexPath.row <= self.sequencerDict.count) { // load sequencer data from json file before editing
             if (indexPath.column == 3) {
                 let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: TimeSignatureCell.identifier, for: indexPath) as! TimeSignatureCell
-                cell.setup()
+                cell.setup(input: self.sequencerDict[String(indexPath.row)]![headers[indexPath.column]]!)
                 return cell
             }
             else if (indexPath.column == 4) {
                 let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: TurnCell.identifier, for: indexPath) as! TurnCell
-                cell.setup()
+                cell.setup(input: self.sequencerDict[String(indexPath.row)]![headers[indexPath.column]]!)
                 return cell
             }
             else {
                 let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: InputCell.identifier, for: indexPath) as! InputCell
-                cell.setup()
+                cell.setup(input: self.sequencerDict[String(indexPath.row)]![headers[indexPath.column]]!)
+                return cell
+            }
+        }
+        else {
+            if (indexPath.column == 3) {
+                let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: TimeSignatureCell.identifier, for: indexPath) as! TimeSignatureCell
+                cell.setup(input: "")
+                return cell
+            }
+            else if (indexPath.column == 4) {
+                let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: TurnCell.identifier, for: indexPath) as! TurnCell
+                cell.setup(input: "")
+                return cell
+            }
+            else {
+                let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: InputCell.identifier, for: indexPath) as! InputCell
+                cell.setup(input: "")
                 return cell
             }
         }
@@ -67,7 +91,11 @@ class SequencerViewController: UIViewController, SpreadsheetViewDataSource, Spre
     }
     
     func numberOfRows(in spreadsheetView: SpreadsheetView) -> Int {
-        return 1001
+        return 26
+    }
+    
+    func frozenRows(in spreadsheetView: SpreadsheetView) -> Int {
+        return 1
     }
     
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, widthForColumn column: Int) -> CGFloat {
@@ -75,13 +103,14 @@ class SequencerViewController: UIViewController, SpreadsheetViewDataSource, Spre
     }
     
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, heightForRow row: Int) -> CGFloat {
-        return 80
+        return 45
     }
 
     @IBAction func saveSequencer(_ sender: Any) {
+        self.sequencerDict.removeAll()
         var isEmpty: Bool = false
         loops:
-        for row in 1...10 {
+        for row in 1...25 {
             var dict: [String: String] = [:]
             for col in 0...4 {
                 if (col == 3) {
@@ -128,6 +157,10 @@ class SequencerViewController: UIViewController, SpreadsheetViewDataSource, Spre
                         do {
                             try jsonData.write(to: actualPath)
                             print("file successfully saved!")
+                            let pvc = self.parent as! UINavigationController
+                            let count = pvc.viewControllers.count
+                            let vc = pvc.viewControllers[count - 2] as! SongListViewController
+                            vc.editMode = false
                             self.navigationController?.popViewController(animated: true)
                         } catch {
                             print("file could not be saved")
@@ -205,13 +238,15 @@ class InputCell: Cell, KBNumberPadDelegate{
     public let textField = UITextField()
     let numberPad = KBNumberPad()
 
-    public func setup() {
+    public func setup(input: String) {
         numberPad.delegate = self
         textField.inputView = numberPad
         textField.textAlignment = .center
-        textField.font = UIFont.init(name: (textField.font?.fontName)!, size: 24.0)
+        textField.font = UIFont.init(name: (textField.font?.fontName)!, size: 22.0)
         textField.textColor = .black
+        textField.text = input
         contentView.addSubview(textField)
+        contentView.isUserInteractionEnabled = true
     }
 
     override func layoutSubviews() {
@@ -242,13 +277,14 @@ class TimeSignatureCell: Cell, UIPickerViewDelegate, UIPickerViewDataSource {
     public let textField = UITextField()
     let timeSignatures = ["1/4", "2/4", "3/4", "4/4", "5/4", "6/4", "7/4", "9/4", "2/8", "3/8", "6/8", "9/8"]
 
-    public func setup() {
+    public func setup(input: String) {
         let picker = UIPickerView()
         picker.delegate = self
         textField.inputView = picker
         textField.textAlignment = .center
-        textField.font = UIFont.init(name: (textField.font?.fontName)!, size: 24.0)
+        textField.font = UIFont.init(name: (textField.font?.fontName)!, size: 22.0)
         textField.textColor = .black
+        textField.text = input
         contentView.addSubview(textField)
     }
 
@@ -281,13 +317,14 @@ class TurnCell: Cell, UIPickerViewDelegate, UIPickerViewDataSource {
     public let textField = UITextField()
     let options = ["", "no", "yes"]
 
-    public func setup() {
+    public func setup(input: String) {
         let picker = UIPickerView()
         picker.delegate = self
         textField.inputView = picker
         textField.textAlignment = .center
-        textField.font = UIFont.init(name: (textField.font?.fontName)!, size: 24.0)
+        textField.font = UIFont.init(name: (textField.font?.fontName)!, size: 22.0)
         textField.textColor = .black
+        textField.text = input
         contentView.addSubview(textField)
     }
 

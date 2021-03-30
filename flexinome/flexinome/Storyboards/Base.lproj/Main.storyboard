@@ -237,13 +237,28 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Song List" id="wgB-tY-3s8">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="dOT-v9-grb">
-                            <connections>
-                                <segue destination="Uhe-ai-lCC" kind="show" id="pne-yz-62v"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="dOT-v9-grb">
+                                <connections>
+                                    <segue destination="Uhe-ai-lCC" kind="show" identifier="sequencerSegue" id="pne-yz-62v"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="edit" id="df1-as-yyd">
+                                <connections>
+                                    <action selector="editSongList:" destination="tOg-Ow-xW5" id="S9A-rt-vga"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="done" id="1bL-Tc-6eN">
+                                <connections>
+                                    <action selector="doneEditing:" destination="tOg-Ow-xW5" id="c0o-Rt-FcK"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="dOT-v9-grb" id="lly-aw-0Sl"/>
+                        <outlet property="doneButton" destination="1bL-Tc-6eN" id="1zD-gp-xKP"/>
+                        <outlet property="editButton" destination="df1-as-yyd" id="HF5-ve-DWx"/>
                         <outlet property="tableView" destination="8n7-MV-69X" id="9SC-94-djF"/>
                     </connections>
                 </viewController>
