@@ -15,6 +15,7 @@
 		DE2F28FA25FE4844005F1423 /* SongListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2F28F925FE4844005F1423 /* SongListViewController.swift */; };
 		DE2F28FE25FF463B005F1423 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE2F28FD25FF463B005F1423 /* GoogleService-Info.plist */; };
 		DE2F291625FF48D7005F1423 /* FacialGestureCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2F291525FF48D7005F1423 /* FacialGestureCameraView.swift */; };
+		DE35BE8626144024002F04AE /* flexinome_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DE35BE8526144023002F04AE /* flexinome_logo.png */; };
 		DE380A0B25FDD45400E31AEA /* SequencerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE380A0A25FDD45400E31AEA /* SequencerViewController.swift */; };
 		DECCB64625E4C43000951EFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB64525E4C43000951EFA /* AppDelegate.swift */; };
 		DECCB64825E4C43000951EFA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECCB64725E4C43000951EFA /* SceneDelegate.swift */; };
@@ -38,6 +39,7 @@
 		DE2F28F925FE4844005F1423 /* SongListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SongListViewController.swift; path = flexinome/Controllers/SongListViewController.swift; sourceTree = SOURCE_ROOT; };
 		DE2F28FD25FF463B005F1423 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DE2F291525FF48D7005F1423 /* FacialGestureCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacialGestureCameraView.swift; sourceTree = "<group>"; };
+		DE35BE8526144023002F04AE /* flexinome_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flexinome_logo.png; sourceTree = "<group>"; };
 		DE380A0A25FDD45400E31AEA /* SequencerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerViewController.swift; sourceTree = "<group>"; };
 		DECCB64225E4C43000951EFA /* flexinome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = flexinome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DECCB64525E4C43000951EFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				DECCB64525E4C43000951EFA /* AppDelegate.swift */,
 				DECCB64725E4C43000951EFA /* SceneDelegate.swift */,
 				DECCB64E25E4C43100951EFA /* Assets.xcassets */,
+				DE35BE8526144023002F04AE /* flexinome_logo.png */,
 				DECCB65325E4C43100951EFA /* Info.plist */,
 				DE2F28FD25FF463B005F1423 /* GoogleService-Info.plist */,
 			);
@@ -215,6 +218,7 @@
 				DECCB64F25E4C43100951EFA /* Assets.xcassets in Resources */,
 				DE2F28FE25FF463B005F1423 /* GoogleService-Info.plist in Resources */,
 				DE19C25D25EB58D80072A81F /* MyCollectionViewCell.xib in Resources */,
+				DE35BE8626144024002F04AE /* flexinome_logo.png in Resources */,
 				DECCB64D25E4C43000951EFA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -33,6 +33,7 @@ class PDFViewController: UIViewController {
         let button = UIButton()
         button.clipsToBounds = true
         button.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+        button.tintColor = UIColor.systemBlue
         return button
     }()
     
@@ -84,6 +85,8 @@ class PDFViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        setGradientBackground()
         
         // setup AKManager Engine
         AKManager.output = metronome

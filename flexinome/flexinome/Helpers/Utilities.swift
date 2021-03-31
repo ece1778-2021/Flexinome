@@ -35,6 +35,19 @@ extension UIViewController {
         }
     }
     
+    func setGradientBackground() {
+        let colorTop =  UIColor(red: 25.0/255.0, green: 70.0/255.0, blue: 240.0/255.0, alpha: 1.0).cgColor
+        let colorBottom = UIColor(red: 240.0/255.0, green: 25.0/255.0, blue: 150.0/255.0, alpha: 1.0).cgColor
+                    
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [colorTop, colorBottom]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+        gradientLayer.frame = self.view.bounds
+                
+        self.view.layer.insertSublayer(gradientLayer, at:0)
+    }
+    
     struct MetronomeData {
         let tempo: Double
         let beatValue: Int  // beats per measure

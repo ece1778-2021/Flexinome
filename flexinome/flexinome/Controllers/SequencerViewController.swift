@@ -45,29 +45,36 @@ class SequencerViewController: UIViewController, SpreadsheetViewDataSource, Spre
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        spreadsheetView.frame = CGRect(x: 25, y: 130, width: view.frame.size.width-50, height: view.frame.size.height-130)
+        spreadsheetView.frame = CGRect(x: 25, y: 130, width: view.frame.size.width-50, height: view.frame.size.height-140)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setGradientBackground()
     }
     
     func spreadsheetView(_ spreadsheetView: SpreadsheetView, cellForItemAt indexPath: IndexPath) -> Cell? {
         let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: LabelCell.identifier, for: indexPath) as! LabelCell
         if (indexPath.row == 0) {
-            cell.backgroundColor = .systemBlue
-            cell.label.textColor = .white
+            cell.backgroundColor = UIColor(red: 240.0/255.0, green: 25.0/255.0, blue: 150.0/255.0, alpha: 1.0)
             cell.label.text = self.headers[indexPath.column]
         }
         else if (indexPath.row <= GlobalVariable.sequencerDict.count) { // load sequencer data from json file before editing
             if (indexPath.column == 3) {
                 let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: TimeSignatureCell.identifier, for: indexPath) as! TimeSignatureCell
+                cell.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.4)
                 cell.setup(input: GlobalVariable.sequencerDict[String(indexPath.row)]![headers[indexPath.column]]!, indexPath: indexPath)
                 return cell
             }
             else if (indexPath.column == 4) {
                 let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: TurnCell.identifier, for: indexPath) as! TurnCell
+                cell.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.4)
                 cell.setup(input: GlobalVariable.sequencerDict[String(indexPath.row)]![headers[indexPath.column]]!, indexPath: indexPath)
                 return cell
             }
             else {
                 let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: InputCell.identifier, for: indexPath) as! InputCell
+                cell.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.4)
                 cell.setup(input: GlobalVariable.sequencerDict[String(indexPath.row)]![headers[indexPath.column]]!, indexPath: indexPath)
                 return cell
             }
@@ -75,16 +82,19 @@ class SequencerViewController: UIViewController, SpreadsheetViewDataSource, Spre
         else {
             if (indexPath.column == 3) {
                 let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: TimeSignatureCell.identifier, for: indexPath) as! TimeSignatureCell
+                cell.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.4)
                 cell.setup(input: "", indexPath: indexPath)
                 return cell
             }
             else if (indexPath.column == 4) {
                 let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: TurnCell.identifier, for: indexPath) as! TurnCell
+                cell.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.4)
                 cell.setup(input: "", indexPath: indexPath)
                 return cell
             }
             else {
                 let cell = spreadsheetView.dequeueReusableCell(withReuseIdentifier: InputCell.identifier, for: indexPath) as! InputCell
+                cell.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.4)
                 cell.setup(input: "", indexPath: indexPath)
                 return cell
             }
@@ -250,7 +260,7 @@ class InputCell: Cell, KBNumberPadDelegate{
         textField.inputView = numberPad
         textField.textAlignment = .center
         textField.font = UIFont.init(name: (textField.font?.fontName)!, size: 22.0)
-        textField.textColor = .black
+        textField.textColor = .white
         textField.text = input
         self.indexPath = indexPath
         contentView.addSubview(textField)
@@ -314,7 +324,7 @@ class TimeSignatureCell: Cell, UIPickerViewDelegate, UIPickerViewDataSource {
         textField.inputView = picker
         textField.textAlignment = .center
         textField.font = UIFont.init(name: (textField.font?.fontName)!, size: 22.0)
-        textField.textColor = .black
+        textField.textColor = .white
         textField.text = input
         self.indexPath = indexPath
         contentView.addSubview(textField)
@@ -378,7 +388,7 @@ class TurnCell: Cell, UIPickerViewDelegate, UIPickerViewDataSource {
         textField.inputView = picker
         textField.textAlignment = .center
         textField.font = UIFont.init(name: (textField.font?.fontName)!, size: 22.0)
-        textField.textColor = .black
+        textField.textColor = .white
         textField.text = input
         self.indexPath = indexPath
         contentView.addSubview(textField)
@@ -441,6 +451,7 @@ class LabelCell: Cell {
         label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         label.font = UIFont.systemFont(ofSize: 22.0)
         label.textAlignment = .center
+        label.textColor = .white
 
         contentView.addSubview(label)
     }

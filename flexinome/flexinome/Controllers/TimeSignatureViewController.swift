@@ -33,13 +33,18 @@ class TimeSignatureViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        setGradientBackground()
         beatLabel.text = String(metronomeData.beatValue)
         noteLabel.text = String(metronomeData.noteValue)
         beatStepper.value = Double(metronomeData.beatValue)
+        beatStepper.setDecrementImage(beatStepper.decrementImage(for: .normal), for: .normal)
+        beatStepper.setIncrementImage(beatStepper.incrementImage(for: .normal), for: .normal)
         noteStepper.value = Double(metronomeData.noteValue)
+        noteStepper.setDecrementImage(noteStepper.decrementImage(for: .normal), for: .normal)
+        noteStepper.setIncrementImage(noteStepper.incrementImage(for: .normal), for: .normal)
+        
     }
-     
+
     public func configureMetronomeData(data:MetronomeData) {
         self.metronomeData = data
     }

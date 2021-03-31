@@ -28,9 +28,24 @@ class FilesViewController: UIViewController, DocumentDelegate, UISearchBarDelega
         collectionView.register(MyCollectionViewCell.nib(), forCellWithReuseIdentifier: MyCollectionViewCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.2)
         searchBar.delegate = self
+        searchBar.isTranslucent = true
+        searchBar.backgroundImage = UIImage()
+        if let textField = searchBar.value(forKey: "searchField") as? UITextField {
+            textField.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.4)
+            textField.textColor = .white
+            let backgroundView = textField.subviews.first
+            backgroundView?.layer.cornerRadius = 10.5
+            backgroundView?.layer.masksToBounds = true
+        }
         
         self.loadPDFs()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setGradientBackground()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

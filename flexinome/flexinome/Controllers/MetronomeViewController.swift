@@ -38,10 +38,15 @@ class MetronomeViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         self.hideKeyboardWhenTappedAround()
+        tempoStepper.setDecrementImage(tempoStepper.decrementImage(for: .normal), for: .normal)
+        tempoStepper.setIncrementImage(tempoStepper.incrementImage(for: .normal), for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        setGradientBackground()
+        timeSignatureButton.layer.borderColor = UIColor.white.cgColor
         
         AKManager.output = metronome
         do { try AKManager.start() }

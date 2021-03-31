@@ -27,9 +27,11 @@ class SongListViewController: UIViewController, UITableViewDelegate, UITableView
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 255.0/255.0, alpha: 0.4)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setGradientBackground()
         if (editMode == false) {
             navigationItem.rightBarButtonItems = [addButton, editButton]
         }
@@ -87,6 +89,7 @@ class SongListViewController: UIViewController, UITableViewDelegate, UITableView
             cell = UITableViewCell(style: UITableViewCell.CellStyle.default,reuseIdentifier: cellID)
         }
         cell?.textLabel?.text = self.songTitles[indexPath.row]
+        cell?.textLabel?.textColor = UIColor.white
         return cell!
     }
     
@@ -131,6 +134,10 @@ class SongListViewController: UIViewController, UITableViewDelegate, UITableView
         else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.clear
     }
 
     /*
