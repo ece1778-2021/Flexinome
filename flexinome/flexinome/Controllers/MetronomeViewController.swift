@@ -17,6 +17,9 @@ class MetronomeViewController: UIViewController {
     @IBOutlet weak var setButton: UIButton!
     @IBOutlet weak var barIndicatorLabel: UILabel!
     @IBOutlet weak var sequencerModeIndicatorLabel: UILabel!
+    @IBOutlet weak var previousBarButton: UIButton!
+    @IBOutlet weak var nextBarButton: UIButton!
+    
     
     private let metronome = AKMetronome()
     
@@ -32,6 +35,11 @@ class MetronomeViewController: UIViewController {
     
     // metronome data used to sync between VCs
     private var metronomeData = MetronomeData(tempo: 120, beatValue: 4, noteValue: 4)
+    
+    // notify whether one of the rewind button changes the sequence (sync data in metronome)
+    private var previousBarButtonSet = false
+    private var nextBarButtonSet = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,10 +67,14 @@ class MetronomeViewController: UIViewController {
             metronome.callback = sequencerLogic
             loadSequencerData()
             barIndicatorLabel.isHidden = false
+            previousBarButton.isHidden = false
+            nextBarButton.isHidden = false
             sequencerModeIndicatorLabel.isHidden = false
         }
         else {
             barIndicatorLabel.isHidden = true
+            previousBarButton.isHidden = true
+            nextBarButton.isHidden = true
             sequencerModeIndicatorLabel.isHidden = true
             syncMetronome()
         }
@@ -126,11 +138,6 @@ class MetronomeViewController: UIViewController {
         
         metronome.subdivision = metronomeData.beatValue
         metronome.tempo = metronomeData.tempo
-    }
-    
-    /* Callback logic used to display beat visuals */
-    func beatVisualCallback() {
-        
     }
     
     
@@ -250,8 +257,21 @@ class MetronomeViewController: UIViewController {
             if metronome.isPlaying {
                 metronome.stop()
                 playButton.setTitle("Start", for: .normal)
+                previousBarButton.isEnabled = true
+                nextBarButton.isEnabled = true
+                
             }
             else {
+                // rewind button tapped --> sequencer already updated
+                previousBarButton.isEnabled = false
+                nextBarButton.isEnabled = false
+                if previousBarButtonSet || nextBarButtonSet {
+                    previousBarButtonSet = false
+                    nextBarButtonSet = false
+                    metronome.restart()
+                    return
+                }
+                
                 if sequencerTracking.currentSequence == 0 {
                     // initialize metronome with sequencer data
                     metronome.tempo = sequencerData[0].tempo
@@ -350,6 +370,115 @@ class MetronomeViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    
+    /* Go to previous bar if doable*/
+    @IBAction func previousBarButtonTapped(_ sender: Any) {
+        
+        if previousBarButtonSet || nextBarButtonSet {
+            // move to the correct bar
+            sequencerTracking.beatCount += 1
+            sequencerTracking.notesCounter += 1
+        }
+        
+        playButton.isEnabled = false
+        previousBarButtonSet = true
+        if sequencerTracking.currentBar < 2 {
+            // go to the start of the same bar if this is the very first bar
+            sequencerTracking.beatCount -= sequencerTracking.notesCounter
+            sequencerTracking.notesCounter = 0
+            playButton.isEnabled = true
+            return
+        }
+        
+        sequencerTracking.currentBar -= 1
+        barIndicatorLabel.text = "Bar# " + String(sequencerTracking.currentBar)
+        
+        // rewind the notes and beats counter to the start of current bar
+        sequencerTracking.beatCount = sequencerTracking.beatCount - sequencerTracking.notesCounter + 1
+        sequencerTracking.notesCounter = 0
+        
+        // corner case: before change is at start of a sequence
+        if sequencerTracking.currentSequence > 0 {
+            if sequencerTracking.beatCount == sequencerData[sequencerTracking.currentSequence - 1].nextSequenceStartAtBeat {
+                // now go to the previous sequence
+                sequencerTracking.currentSequence -= 1
+            }
+        }
+        
+        // update the sequencer and metronome
+        let tempo = sequencerData[sequencerTracking.currentSequence].tempo
+        metronome.tempo = tempo
+        let beatValue = sequencerData[sequencerTracking.currentSequence].beatValue
+        metronome.subdivision = beatValue
+        sequencerTracking.notesInBar = beatValue
+        
+        // rewind the beat counter further to the point where the desired bar is about to begin
+        sequencerTracking.beatCount = sequencerTracking.beatCount - beatValue - 1
+       
+        // update UI
+        let ts = String(beatValue) + "/" + String(sequencerData[sequencerTracking.currentSequence].noteValue)
+        
+        tempoTextField.text = String(Int(tempo))
+        tempoStepper.value = tempo
+        timeSignatureButton.setTitle(ts, for: .normal)
+        
+        playButton.isEnabled = true
+    }
+    
+    
+    /* Go to next bar if doable*/
+    @IBAction func nextBarButtonTapped(_ sender: Any) {
+        
+        if previousBarButtonSet || nextBarButtonSet {
+            // move to the correct bar
+            sequencerTracking.beatCount += 1
+            sequencerTracking.notesCounter += 1
+        }
+        
+        playButton.isEnabled = false
+        nextBarButtonSet = true
+        
+        
+        // corner case: before change is at end of a sequence
+        let lastBarStartAtBeat = sequencerData[sequencerTracking.currentSequence].nextSequenceStartAtBeat - sequencerTracking.notesInBar
+        if sequencerTracking.beatCount >= lastBarStartAtBeat {
+            if sequencerData[sequencerTracking.currentSequence].isEndOfSong {
+                // go to the start of the same bar if this is the last bar of the last sequence
+                sequencerTracking.beatCount -= sequencerTracking.notesCounter
+                sequencerTracking.notesCounter = 0
+                playButton.isEnabled = true
+                return
+            }
+            else {
+                // go to the next sequence
+                sequencerTracking.currentSequence += 1
+            }
+        }
+        
+        // rewind the notes and beats counter to the point where the desired bar is about to begin
+        sequencerTracking.beatCount = sequencerTracking.beatCount - sequencerTracking.notesCounter + sequencerTracking.notesInBar
+        sequencerTracking.notesCounter = 0
+        
+        // update the sequencer and metronome
+        let tempo = sequencerData[sequencerTracking.currentSequence].tempo
+        metronome.tempo = tempo
+        let beatValue = sequencerData[sequencerTracking.currentSequence].beatValue
+        metronome.subdivision = beatValue
+        sequencerTracking.notesInBar = beatValue
+        
+        
+        
+        // UI
+        sequencerTracking.currentBar += 1
+        barIndicatorLabel.text = "Bar# " + String(sequencerTracking.currentBar)
+        
+        let ts = String(beatValue) + "/" + String(sequencerData[sequencerTracking.currentSequence].noteValue)
+        tempoTextField.text = String(Int(tempo))
+        tempoStepper.value = tempo
+        timeSignatureButton.setTitle(ts, for: .normal)
+        
+        playButton.isEnabled = true
+    }
     
     /*
     // MARK: - Navigation

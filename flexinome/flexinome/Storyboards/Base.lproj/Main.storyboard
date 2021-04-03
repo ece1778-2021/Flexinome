@@ -398,9 +398,31 @@
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sequencer Mode" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="rRI-VW-ql9">
                                 <rect key="frame" x="401.5" y="150" width="221" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <color key="textColor" red="0.90125830429999998" green="0.0" blue="1" alpha="0.7993519764" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nN0-p9-dWw" userLabel="previousBar">
+                                <rect key="frame" x="377.5" y="503" width="40" height="37.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="INM-3h-ObH"/>
+                                    <constraint firstAttribute="height" constant="40" id="stb-Ma-D4U"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="arrow.backward.square" catalog="system"/>
+                                <connections>
+                                    <action selector="previousBarButtonTapped:" destination="Lyk-Gh-Vn9" eventType="touchUpInside" id="KFd-F8-Dnt"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvX-2a-687" userLabel="nextBar">
+                                <rect key="frame" x="606.5" y="503" width="40" height="37.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="32z-mL-TCY"/>
+                                    <constraint firstAttribute="width" constant="40" id="fD1-oP-7i9"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="arrow.forward.square" catalog="system"/>
+                                <connections>
+                                    <action selector="nextBarButtonTapped:" destination="Lyk-Gh-Vn9" eventType="touchUpInside" id="8xJ-Ft-8vd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Kgc-ft-DyS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -413,10 +435,12 @@
                             <constraint firstItem="5r1-pR-6jF" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="8Kd-KM-Hlh"/>
                             <constraint firstItem="5r1-pR-6jF" firstAttribute="top" secondItem="rRI-VW-ql9" secondAttribute="bottom" constant="60" id="8OS-76-04Y"/>
                             <constraint firstItem="FrF-X3-RIN" firstAttribute="top" secondItem="Daa-3J-8P0" secondAttribute="bottom" constant="20" id="8WG-vg-zdY"/>
+                            <constraint firstItem="qvq-Qk-wSS" firstAttribute="leading" secondItem="nN0-p9-dWw" secondAttribute="trailing" constant="60" id="AVF-GM-oP9"/>
                             <constraint firstItem="FrF-X3-RIN" firstAttribute="width" secondItem="6Yw-gO-MQ4" secondAttribute="width" multiplier="0.4" id="DBh-g2-GWs"/>
                             <constraint firstItem="Daa-3J-8P0" firstAttribute="top" secondItem="Zvh-Xi-ltC" secondAttribute="bottom" constant="20" id="G3T-dL-haW"/>
                             <constraint firstItem="qvq-Qk-wSS" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="HeT-pv-OSx"/>
                             <constraint firstItem="qvq-Qk-wSS" firstAttribute="top" secondItem="wSf-X2-Fbz" secondAttribute="bottom" constant="100" id="Hxx-4c-d0n"/>
+                            <constraint firstItem="zvX-2a-687" firstAttribute="leading" secondItem="nN0-p9-dWw" secondAttribute="trailing" constant="189" id="Jkq-1t-QSg"/>
                             <constraint firstItem="Daa-3J-8P0" firstAttribute="height" secondItem="Kgc-ft-DyS" secondAttribute="height" multiplier="0.07" id="Kdo-Dm-t0V"/>
                             <constraint firstItem="Kgc-ft-DyS" firstAttribute="trailing" secondItem="lPM-sM-xZ1" secondAttribute="trailing" constant="150" id="LEN-9w-NWb"/>
                             <constraint firstItem="FrF-X3-RIN" firstAttribute="height" secondItem="6Yw-gO-MQ4" secondAttribute="height" multiplier="0.07" id="La8-t8-wcf"/>
@@ -424,8 +448,10 @@
                             <constraint firstItem="Zvh-Xi-ltC" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="Pny-jH-SEf"/>
                             <constraint firstItem="lPM-sM-xZ1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5r1-pR-6jF" secondAttribute="trailing" constant="8" symbolic="YES" id="cLH-Ze-5wR"/>
                             <constraint firstItem="Daa-3J-8P0" firstAttribute="width" secondItem="Kgc-ft-DyS" secondAttribute="width" multiplier="0.4" id="dGa-nX-nfH"/>
+                            <constraint firstItem="zvX-2a-687" firstAttribute="top" secondItem="5r1-pR-6jF" secondAttribute="bottom" constant="135" id="m28-DV-T6w"/>
                             <constraint firstItem="Kgc-ft-DyS" firstAttribute="bottom" secondItem="Daa-3J-8P0" secondAttribute="bottom" constant="260" id="tz5-7t-v8w"/>
                             <constraint firstItem="rRI-VW-ql9" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="uUM-bi-gsW"/>
+                            <constraint firstItem="nN0-p9-dWw" firstAttribute="top" secondItem="5r1-pR-6jF" secondAttribute="bottom" constant="135" id="ubg-mN-06Y"/>
                             <constraint firstItem="wSf-X2-Fbz" firstAttribute="centerX" secondItem="6Yw-gO-MQ4" secondAttribute="centerX" id="wda-qi-tM1"/>
                             <constraint firstItem="wSf-X2-Fbz" firstAttribute="top" secondItem="5r1-pR-6jF" secondAttribute="bottom" constant="10" id="zVn-Bn-yr6"/>
                         </constraints>
@@ -433,7 +459,9 @@
                     <navigationItem key="navigationItem" title="Metronome" largeTitleDisplayMode="always" id="ugE-VR-gWW"/>
                     <connections>
                         <outlet property="barIndicatorLabel" destination="qvq-Qk-wSS" id="OIS-g3-tzJ"/>
+                        <outlet property="nextBarButton" destination="zvX-2a-687" id="dtu-mV-Por"/>
                         <outlet property="playButton" destination="Daa-3J-8P0" id="r1w-Kq-UAP"/>
+                        <outlet property="previousBarButton" destination="nN0-p9-dWw" id="gAb-li-Wbx"/>
                         <outlet property="sequencerModeIndicatorLabel" destination="rRI-VW-ql9" id="jAE-LO-S7d"/>
                         <outlet property="setButton" destination="Zvh-Xi-ltC" id="tCj-Cn-Nqf"/>
                         <outlet property="tempoStepper" destination="wSf-X2-Fbz" id="ISF-Xk-scz"/>
@@ -577,6 +605,8 @@
     </scenes>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
+        <image name="arrow.backward.square" catalog="system" width="128" height="114"/>
+        <image name="arrow.forward.square" catalog="system" width="128" height="114"/>
         <image name="flexinome_logo.png" width="841" height="595"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

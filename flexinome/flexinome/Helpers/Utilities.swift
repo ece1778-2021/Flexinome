@@ -79,5 +79,4 @@ extension UIViewController {
             self.notesCounter = 0
         }
     }
-    
 }

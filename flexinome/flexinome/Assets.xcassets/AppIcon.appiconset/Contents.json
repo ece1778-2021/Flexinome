@@ -71,16 +71,19 @@
       "size" : "40x40"
     },
     {
+      "filename" : "Flexinome76x76.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"
     },
     {
+      "filename" : "Flexinome152x152.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
+      "filename" : "Flexinome167x167.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
