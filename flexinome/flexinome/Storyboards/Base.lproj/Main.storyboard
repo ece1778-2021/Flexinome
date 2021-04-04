@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="LHy-s1-hxv">
-                                <rect key="frame" x="205" y="150" width="614" height="410"/>
+                                <rect key="frame" x="205" y="200" width="614" height="410"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6T-L9-K18">
                                         <rect key="frame" x="0.0" y="0.0" width="614" height="102.5"/>
@@ -56,7 +56,7 @@
                                         <rect key="frame" x="0.0" y="307.5" width="614" height="102.5"/>
                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.69644983556886386" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                        <state key="normal" title="Page Turning Settings">
+                                        <state key="normal" title="Settings">
                                             <color key="titleColor" red="0.3861822346068351" green="0.0" blue="1" alpha="0.74945998033940397" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -64,6 +64,9 @@
                                                 <integer key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="0xn-ii-XgS" kind="show" id="ENX-Cq-Dt2"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -72,20 +75,20 @@
                                     <constraint firstItem="fNk-Vd-Xqx" firstAttribute="height" secondItem="LHy-s1-hxv" secondAttribute="height" multiplier="0.25" id="PrJ-gX-lOm"/>
                                 </constraints>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flexinome_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="j9R-X8-gxx">
-                                <rect key="frame" x="256" y="819.5" width="512" height="546.5"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flexinome_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="j9R-X8-gxx">
+                                <rect key="frame" x="358.5" y="856" width="307" height="410"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="LHy-s1-hxv" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="0aE-gK-xDg"/>
-                            <constraint firstItem="j9R-X8-gxx" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="4VL-1t-eJn"/>
-                            <constraint firstItem="LHy-s1-hxv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="Ike-18-Yig"/>
+                            <constraint firstItem="j9R-X8-gxx" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.3" id="4VL-1t-eJn"/>
+                            <constraint firstItem="LHy-s1-hxv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="150" id="Ike-18-Yig"/>
                             <constraint firstItem="LHy-s1-hxv" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.3" id="OSy-Jm-vhP"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="j9R-X8-gxx" secondAttribute="bottom" id="Vg4-0L-OPg"/>
+                            <constraint firstItem="j9R-X8-gxx" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-100" id="Vg4-0L-OPg"/>
                             <constraint firstItem="j9R-X8-gxx" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="eHL-pu-KNX"/>
-                            <constraint firstItem="j9R-X8-gxx" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.4" id="gOD-YZ-vCd"/>
+                            <constraint firstItem="j9R-X8-gxx" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.3" id="gOD-YZ-vCd"/>
                             <constraint firstItem="LHy-s1-hxv" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.6" id="qiy-DF-1W4"/>
                         </constraints>
                     </view>
@@ -197,6 +200,66 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mxa-dy-xBN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1358.7890625" y="762.95754026354314"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="vBs-UB-bnI">
+            <objects>
+                <viewController id="0xn-ii-XgS" customClass="SettingsViewController" customModule="flexinome" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="T4e-c8-VaM">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Page Turning Sensitivity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pE3-UH-bEl">
+                                <rect key="frame" x="307" y="150" width="410" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VuG-oe-V9b">
+                                <rect key="frame" x="153.5" y="221" width="717" height="26.5"/>
+                                <subviews>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="20" minValue="5" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="8DR-br-xr2">
+                                        <rect key="frame" x="-2" y="0.0" width="649" height="27.5"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="changePageTurningSensitivity:" destination="0xn-ii-XgS" eventType="valueChanged" id="bj3-2O-9L8"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yJ0-03-a55">
+                                        <rect key="frame" x="645" y="0.0" width="72" height="26.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="8DR-br-xr2" firstAttribute="width" secondItem="VuG-oe-V9b" secondAttribute="width" multiplier="0.9" id="7oo-1M-wlN"/>
+                                    <constraint firstItem="yJ0-03-a55" firstAttribute="width" secondItem="VuG-oe-V9b" secondAttribute="width" multiplier="0.1" id="upO-Gk-bq7"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="zFY-yp-RTS"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="pE3-UH-bEl" firstAttribute="height" secondItem="T4e-c8-VaM" secondAttribute="height" multiplier="0.03" id="0CW-iJ-aaY"/>
+                            <constraint firstItem="VuG-oe-V9b" firstAttribute="centerX" secondItem="zFY-yp-RTS" secondAttribute="centerX" id="Ckt-LN-vIJ"/>
+                            <constraint firstItem="pE3-UH-bEl" firstAttribute="width" secondItem="T4e-c8-VaM" secondAttribute="width" multiplier="0.4" id="D1E-Ij-IED"/>
+                            <constraint firstItem="VuG-oe-V9b" firstAttribute="width" secondItem="zFY-yp-RTS" secondAttribute="width" multiplier="0.7" id="HcB-sN-HzS"/>
+                            <constraint firstItem="VuG-oe-V9b" firstAttribute="height" secondItem="zFY-yp-RTS" secondAttribute="height" multiplier="0.02" id="dxi-xN-kFE"/>
+                            <constraint firstItem="pE3-UH-bEl" firstAttribute="top" secondItem="zFY-yp-RTS" secondAttribute="top" constant="100" id="vpb-tP-2KK"/>
+                            <constraint firstItem="pE3-UH-bEl" firstAttribute="centerX" secondItem="zFY-yp-RTS" secondAttribute="centerX" id="vxk-YP-lmN"/>
+                            <constraint firstItem="VuG-oe-V9b" firstAttribute="top" secondItem="pE3-UH-bEl" secondAttribute="bottom" constant="30" id="xbX-bv-1gz"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" id="mAT-xu-IOu"/>
+                    <connections>
+                        <outlet property="pageTurningSensitivity" destination="yJ0-03-a55" id="IKH-nH-Cns"/>
+                        <outlet property="pageTurningSensitivitySlider" destination="8DR-br-xr2" id="Aol-9M-ngq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x01-Re-uAE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="705.46875" y="-568.37481698389456"/>
         </scene>
         <!--Song List-->
         <scene sceneID="GQg-zJ-6Qw">
@@ -607,7 +670,7 @@
     <resources>
         <image name="arrow.backward.square" catalog="system" width="128" height="114"/>
         <image name="arrow.forward.square" catalog="system" width="128" height="114"/>
-        <image name="flexinome_logo.png" width="841" height="595"/>
+        <image name="flexinome_logo.png" width="167" height="167"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

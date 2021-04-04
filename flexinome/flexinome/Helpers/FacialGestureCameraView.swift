@@ -34,9 +34,9 @@ public class FacialGestureCameraView: UIView {
     
     public weak var delegate: FacialGestureCameraViewDelegate?
     
-    public var leftNodThreshold: CGFloat = 30.0
+    public var leftNodThreshold: CGFloat = CGFloat(UserDefaults.standard.float(forKey: "PageTurningSensitivity"))
     
-    public var rightNodThreshold: CGFloat = -30.0
+    public var rightNodThreshold: CGFloat = CGFloat(-1.0 * UserDefaults.standard.float(forKey: "PageTurningSensitivity"))
     
     public var smileProbality: CGFloat = 0.95
     
@@ -233,7 +233,6 @@ extension FacialGestureCameraView: AVCaptureVideoDataOutputSampleBufferDelegate 
                 
                 // left head nod
                 if face.headEulerAngleZ > self.leftNodThreshold {
-                    
                     if self.restingFace {
                         self.restingFace = false
                         self.delegate?.nodLeftDetected?()
