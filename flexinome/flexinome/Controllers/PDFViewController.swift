@@ -29,6 +29,9 @@ class PDFViewController: UIViewController {
     private var sequencerData = [SequencerData]()
     private var sequencerTracking = SequencerTracking()
     
+    private var previousBarButtonSet = false
+    private var nextBarButtonSet = false
+    
     private let playButton: UIButton = {
         let button = UIButton()
         button.clipsToBounds = true
@@ -43,6 +46,29 @@ class PDFViewController: UIViewController {
         return button
     }()
     
+    private let previousBarButton: UIButton = {
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.setBackgroundImage(UIImage(systemName: "arrow.backward.square"), for: .normal)
+        button.tintColor = .black
+        return button
+    }()
+    
+    private let nextBarButton: UIButton = {
+        let button = UIButton()
+        button.clipsToBounds = true
+        button.setBackgroundImage(UIImage(systemName: "arrow.forward.square"), for: .normal)
+        button.tintColor = .black
+        return button
+    }()
+    
+    private let barIndicatorLabel: UILabel = {
+        let label = UILabel()
+        label.text = "# 1"
+        label.textAlignment = .center
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,8 +76,13 @@ class PDFViewController: UIViewController {
         view.addSubview(pdfView)
         view.addSubview(playButton)
         view.addSubview(metronomeButton)
+        view.addSubview(previousBarButton)
+        view.addSubview(nextBarButton)
+        view.addSubview(barIndicatorLabel)
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
         metronomeButton.addTarget(self, action: #selector(metronomeButtonTapped), for: .touchUpInside)
+        previousBarButton.addTarget(self, action: #selector(previousBarButtonTapped), for: .touchUpInside)
+        nextBarButton.addTarget(self, action: #selector(nextBarButtonTapped), for: .touchUpInside)
         
         if let document = PDFDocument(url: pdfURL) {
             pdfView.displayMode = .singlePage
@@ -79,8 +110,16 @@ class PDFViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         let navBarFrame = self.navigationController?.navigationBar.frame
         pdfView.frame = CGRect(x: 0, y: navBarFrame!.maxY, width: view.bounds.width, height: view.bounds.height - navBarFrame!.height)
+        
         playButton.frame = CGRect(x: view.frame.maxX-50 , y: view.frame.maxY*0.8, width: 30, height: 30)
+        
         metronomeButton.frame = CGRect(x: view.frame.maxX-60 , y: playButton.frame.maxY + 10, width: 50, height: 50)
+        
+        previousBarButton.frame = CGRect(x: view.frame.maxX-50 , y: metronomeButton.frame.maxY+10, width: 30, height: 30)
+        
+        barIndicatorLabel.frame = CGRect(x: view.frame.maxX-70 , y: previousBarButton.frame.maxY+10, width: 70, height: 30)
+        
+        nextBarButton.frame = CGRect(x: view.frame.maxX-50 , y: barIndicatorLabel.frame.maxY+10, width: 30, height: 30)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,9 +137,15 @@ class PDFViewController: UIViewController {
         
         if sequencerMode {
             metronomeButton.setBackgroundImage(UIImage(named: "song"), for: .normal)
+            previousBarButton.isHidden = false
+            nextBarButton.isHidden = false
+            barIndicatorLabel.isHidden = false
         }
         else {
             metronomeButton.setBackgroundImage(UIImage(named: "metronome_color"), for: .normal)
+            previousBarButton.isHidden = true
+            nextBarButton.isHidden = true
+            barIndicatorLabel.isHidden = true
         }
         
     }
@@ -137,8 +182,19 @@ class PDFViewController: UIViewController {
             if metronome.isPlaying {
                 metronome.stop()
                 playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+                previousBarButton.isEnabled = true
+                nextBarButton.isEnabled = true
             }
             else {
+                previousBarButton.isEnabled = false
+                nextBarButton.isEnabled = false
+                if previousBarButtonSet || nextBarButtonSet {
+                    previousBarButtonSet = false
+                    nextBarButtonSet = false
+                    metronome.restart()
+                    return
+                }
+                
                 if sequencerTracking.currentSequence == 0 {
                     // initialize metronome with sequencer data
                     metronome.callback = sequencerLogic
@@ -150,6 +206,7 @@ class PDFViewController: UIViewController {
                     sequencerTracking.currentBar = 1
                     
                     playButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: .normal)
+                    barIndicatorLabel.text = "# " + String(sequencerTracking.currentBar)
                     metronome.restart()
                 }
                 else {
@@ -198,7 +255,9 @@ class PDFViewController: UIViewController {
         if sequencerTracking.notesCounter - 1 == sequencerTracking.notesInBar {
             sequencerTracking.notesCounter = 1
             sequencerTracking.currentBar += 1
-
+            DispatchQueue.main.async {
+                self.barIndicatorLabel.text = "# " + String(self.sequencerTracking.currentBar)
+            }
         }
         
         // update tempo and time sig at the start of a sequence
@@ -241,7 +300,101 @@ class PDFViewController: UIViewController {
         metronome.callback = {}
         sequencerTracking.cleanAll()
     }
-
+    
+    @IBAction func previousBarButtonTapped() {
+        
+        if previousBarButtonSet || nextBarButtonSet {
+            // move to the correct bar
+            sequencerTracking.beatCount += 1
+            sequencerTracking.notesCounter += 1
+        }
+        
+        playButton.isEnabled = false
+        previousBarButtonSet = true
+        if sequencerTracking.currentBar < 2 {
+            // go to the start of the same bar if this is the very first bar
+            sequencerTracking.beatCount -= sequencerTracking.notesCounter
+            sequencerTracking.notesCounter = 0
+            playButton.isEnabled = true
+            return
+        }
+        
+        sequencerTracking.currentBar -= 1
+        barIndicatorLabel.text = "# " + String(sequencerTracking.currentBar)
+        
+        // rewind the notes and beats counter to the start of current bar
+        sequencerTracking.beatCount = sequencerTracking.beatCount - sequencerTracking.notesCounter + 1
+        sequencerTracking.notesCounter = 0
+        
+        // corner case: before change is at start of a sequence
+        if sequencerTracking.currentSequence > 0 {
+            if sequencerTracking.beatCount == sequencerData[sequencerTracking.currentSequence - 1].nextSequenceStartAtBeat {
+                // now go to the previous sequence
+                sequencerTracking.currentSequence -= 1
+            }
+        }
+        
+        // update the sequencer and metronome
+        let tempo = sequencerData[sequencerTracking.currentSequence].tempo
+        metronome.tempo = tempo
+        let beatValue = sequencerData[sequencerTracking.currentSequence].beatValue
+        metronome.subdivision = beatValue
+        sequencerTracking.notesInBar = beatValue
+        
+        // rewind the beat counter further to the point where the desired bar is about to begin
+        sequencerTracking.beatCount = sequencerTracking.beatCount - beatValue - 1
+        
+        playButton.isEnabled = true
+    }
+    
+    @IBAction func nextBarButtonTapped() {
+        
+        if previousBarButtonSet || nextBarButtonSet {
+            // move to the correct bar
+            sequencerTracking.beatCount += 1
+            sequencerTracking.notesCounter += 1
+        }
+        
+        playButton.isEnabled = false
+        nextBarButtonSet = true
+        
+        
+        // corner case: before change is at end of a sequence
+        let lastBarStartAtBeat = sequencerData[sequencerTracking.currentSequence].nextSequenceStartAtBeat - sequencerTracking.notesInBar
+        if sequencerTracking.beatCount >= lastBarStartAtBeat {
+            if sequencerData[sequencerTracking.currentSequence].isEndOfSong {
+                // go to the start of the same bar if this is the last bar of the last sequence
+                sequencerTracking.beatCount -= sequencerTracking.notesCounter
+                sequencerTracking.notesCounter = 0
+                playButton.isEnabled = true
+                return
+            }
+            else {
+                // go to the next sequence
+                sequencerTracking.currentSequence += 1
+            }
+        }
+        
+        // rewind the notes and beats counter to the point where the desired bar is about to begin
+        sequencerTracking.beatCount = sequencerTracking.beatCount - sequencerTracking.notesCounter + sequencerTracking.notesInBar
+        sequencerTracking.notesCounter = 0
+        
+        // update the sequencer and metronome
+        let tempo = sequencerData[sequencerTracking.currentSequence].tempo
+        metronome.tempo = tempo
+        let beatValue = sequencerData[sequencerTracking.currentSequence].beatValue
+        metronome.subdivision = beatValue
+        sequencerTracking.notesInBar = beatValue
+        
+        
+        
+        // UI
+        sequencerTracking.currentBar += 1
+        barIndicatorLabel.text = "# " + String(sequencerTracking.currentBar)
+        
+        playButton.isEnabled = true
+    }
+    
     /*
     // MARK: - Navigation
 

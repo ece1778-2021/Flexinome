@@ -66,9 +66,11 @@ class MetronomeViewController: UIViewController {
         if sequencerMode {
             metronome.callback = sequencerLogic
             loadSequencerData()
-            barIndicatorLabel.isHidden = false
-            previousBarButton.isHidden = false
-            nextBarButton.isHidden = false
+            if !embededMode {
+                barIndicatorLabel.isHidden = false
+                previousBarButton.isHidden = false
+                nextBarButton.isHidden = false
+            }
             sequencerModeIndicatorLabel.isHidden = false
         }
         else {
@@ -245,6 +247,8 @@ class MetronomeViewController: UIViewController {
         sequencerTracking.cleanAll()
         barIndicatorLabel.isHidden = true
         sequencerModeIndicatorLabel.isHidden = true
+        previousBarButton.isHidden = true
+        nextBarButton.isHidden = true
     }
     
     
