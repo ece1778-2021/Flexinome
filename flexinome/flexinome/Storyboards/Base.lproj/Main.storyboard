@@ -76,14 +76,14 @@
                                 </constraints>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flexinome_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="j9R-X8-gxx">
-                                <rect key="frame" x="358.5" y="856" width="307" height="410"/>
+                                <rect key="frame" x="256" y="856" width="512" height="410"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="LHy-s1-hxv" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="0aE-gK-xDg"/>
-                            <constraint firstItem="j9R-X8-gxx" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.3" id="4VL-1t-eJn"/>
+                            <constraint firstItem="j9R-X8-gxx" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="4VL-1t-eJn"/>
                             <constraint firstItem="LHy-s1-hxv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="150" id="Ike-18-Yig"/>
                             <constraint firstItem="LHy-s1-hxv" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.3" id="OSy-Jm-vhP"/>
                             <constraint firstItem="j9R-X8-gxx" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-100" id="Vg4-0L-OPg"/>
@@ -670,7 +670,7 @@
     <resources>
         <image name="arrow.backward.square" catalog="system" width="128" height="114"/>
         <image name="arrow.forward.square" catalog="system" width="128" height="114"/>
-        <image name="flexinome_logo.png" width="167" height="167"/>
+        <image name="flexinome_logo.png" width="1080" height="1080"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
